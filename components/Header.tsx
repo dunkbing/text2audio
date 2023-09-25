@@ -37,7 +37,7 @@ export default function Header(props: HeaderProps) {
           <img
             src="/cover.png"
             alt={SITE_NAME + " logo"}
-            class="h-16"
+            class="h-20"
           />
         </a>
         <div class="flex gap-4 items-center">

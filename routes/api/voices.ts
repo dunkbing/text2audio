@@ -36,7 +36,7 @@ export const handler: Handlers<Query> = {
       return Response.json(voiceUrls);
     } catch (_error) {
       console.error(_error);
-      return Response.json(_error);
+      return Response.json({ error: _error });
     }
   },
 };

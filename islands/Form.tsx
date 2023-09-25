@@ -258,6 +258,8 @@ const VoiceCard = (props: Voice) => {
   const audio = useMemo(() => new Audio(props.url), [props.url]);
   const [playing, setPlaying] = useState(false);
 
+  audio.onpause = () => setPlaying(false);
+
   return (
     <div class="w-2/3 mx-auto mt-8 bg-white rounded-lg overflow-hidden shadow-lg">
       <div class="p-4">
@@ -375,7 +377,10 @@ export default function () {
                 language: language.value,
               }),
             });
-            voices.value = await res.json() as Voice[];
+            const voicesTmp = await res.json();
+            if (Array.isArray(voicesTmp)) {
+              voices.value = voicesTmp as Voice[];
+            }
           }}
         >
           Submit

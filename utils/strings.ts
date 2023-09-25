@@ -3,24 +3,43 @@ export function splitParagraph(text: string, chunkSize = 150) {
     return [];
   }
 
-  const words = text.split(" ");
+  // Remove empty lines and split by new line character
+  const lines = text.split("\n").filter((line) => line.trim() !== "");
+
   const chunks = [];
-  let currentChunk = "";
 
-  for (const word of words) {
-    if ((currentChunk + " " + word).length <= chunkSize) {
-      if (currentChunk.length > 0) {
-        currentChunk += " ";
+  for (const line of lines) {
+    const words = line.split(" ");
+    let currentChunk = "";
+
+    for (const word of words) {
+      if ((currentChunk + " " + word).length <= chunkSize) {
+        if (currentChunk.length > 0) {
+          currentChunk += " ";
+        }
+        currentChunk += word;
+      } else {
+        // Split the chunk based on punctuation if it exceeds the chunk size
+        const punctuationSplit = currentChunk.split(/([.,;])/);
+        currentChunk = "";
+
+        for (const part of punctuationSplit) {
+          if ((currentChunk + part).length <= chunkSize) {
+            if (currentChunk.length > 0) {
+              currentChunk += " ";
+            }
+            currentChunk += part;
+          } else {
+            chunks.push(currentChunk);
+            currentChunk = part;
+          }
+        }
       }
-      currentChunk += word;
-    } else {
-      chunks.push(currentChunk);
-      currentChunk = word;
     }
-  }
 
-  if (currentChunk.length > 0) {
-    chunks.push(currentChunk);
+    if (currentChunk.length > 0) {
+      chunks.push(currentChunk);
+    }
   }
 
   return chunks;

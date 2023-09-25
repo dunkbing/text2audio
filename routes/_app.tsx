@@ -5,7 +5,7 @@ import Footer from "@/components/Footer.tsx";
 export default function App({ Component, url }: AppProps) {
   return (
     <div class="bg-gray-100">
-      <div class="flex flex-col min-h-screen mx-auto w-2/3">
+      <div class="flex flex-col min-h-screen mx-auto sm:w-full md:w-2/3 lg:w-1/2">
         <Header
           url={url}
         />

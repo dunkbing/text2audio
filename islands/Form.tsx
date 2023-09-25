@@ -1,11 +1,70 @@
 import { signal } from "@preact/signals";
 import { useMemo, useState } from "preact/hooks";
+import { Button } from "@/components/Button.tsx";
+import { Loader } from "@/components/Loader.tsx";
 
 type Voice = { url: string; text: string };
 
-const text = signal("");
-const language = signal("en-US");
-const voices = signal<Voice[]>([]);
+async function downloadFile(url: string, filename: string) {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const a = document.createElement("a");
+    a.style.display = "none";
+    document.body.appendChild(a);
+
+    const url_1 = window.URL.createObjectURL(blob);
+
+    a.href = url_1;
+    a.download = filename;
+
+    a.click();
+
+    window.URL.revokeObjectURL(url_1);
+    document.body.removeChild(a);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+const VoiceCard = (props: Voice & { key?: string | number }) => {
+  const audio = useMemo(() => new Audio(props.url), [props.url]);
+  const [playing, setPlaying] = useState(false);
+
+  audio.onpause = () => setPlaying(false);
+
+  return (
+    <div class="w-2/3 mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-2">
+      <div class="p-4">
+        <p class="text-gray-700 text-center">
+          {props.text}
+        </p>
+      </div>
+      <div class="px-4 pb-4 flex justify-center">
+        <Button
+          onClick={() => {
+            if (playing) {
+              setPlaying(false);
+              audio.pause();
+            } else {
+              setPlaying(true);
+              audio.play();
+            }
+          }}
+        >
+          {playing ? "Pause" : "Play"}
+        </Button>
+        <div class="w-5" />
+        <Button
+          class="bg-green-300 hover:bg-green-400 text-white font-semibold px-4 py-2 rounded focus:outline-none"
+          onClick={() => downloadFile(props.url, `${props.key}.mp3`)}
+        >
+          Download
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 const languages = [
   {
@@ -254,153 +313,109 @@ const languages = [
   },
 ];
 
-const VoiceCard = (props: Voice) => {
-  const audio = useMemo(() => new Audio(props.url), [props.url]);
-  const [playing, setPlaying] = useState(false);
-
-  audio.onpause = () => setPlaying(false);
-
-  return (
-    <div class="w-2/3 mx-auto mt-8 bg-white rounded-lg overflow-hidden shadow-lg">
-      <div class="p-4">
-        <p class="text-gray-700 text-center">
-          {props.text}
-        </p>
-      </div>
-      <div class="px-4 pb-4 flex justify-center">
-        <button
-          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded focus:outline-none"
-          onClick={() => {
-            if (playing) {
-              setPlaying(false);
-              audio.pause();
-            } else {
-              setPlaying(true);
-              audio.play();
-            }
-          }}
-        >
-          {playing ? "Pause" : "Play"}
-        </button>
-        <div class="w-5" />
-        <button
-          class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded focus:outline-none"
-          onClick={() => {
-            fetch(props.url)
-              .then((response) => response.blob())
-              .then((blob) => {
-                const a = document.createElement("a");
-                a.style.display = "none";
-                document.body.appendChild(a);
-
-                const url = window.URL.createObjectURL(blob);
-
-                a.href = url;
-                a.download = props.url.split("/").pop() as string;
-
-                a.click();
-
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          }}
-        >
-          Download
-        </button>
-      </div>
-    </div>
-  );
-};
+const text = signal("");
+const language = signal("en-US");
+const voices = signal<Voice[]>([]);
+const converting = signal(false);
 
 export default function () {
   return (
-    <div class="flex flex-col mb-4 mx-auto p-8 mt-8 w-2/3 items-center">
-      <div class="w-full">
-        <div class="mb-4">
-          <label for="text" class="block text-gray-700 font-bold mb-2">
-            Text
-          </label>
-          <textarea
-            id="text"
-            name="text"
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
-            rows={5}
-            placeholder="Enter your text here"
-            onInput={(e) => {
-              // deno-lint-ignore no-explicit-any
-              const value = (e.target as any).value;
-              text.value = value;
-            }}
-          >
-          </textarea>
-        </div>
-        <div class="mb-4">
-          <label for="language" class="block text-gray-700 font-bold mb-2">
-            Language
-          </label>
-          <select
-            id="language"
-            name="language"
-            class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            onChange={(e) => {
-              // deno-lint-ignore no-explicit-any
-              const value = (e.target as any).value;
-              language.value = value;
-            }}
-          >
-            {languages.map((l) => (
-              <option
-                key={l.value}
-                value={l.value}
-                selected={l.value === "en-US"}
-              >
-                {l.text}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
-          type="submit"
-          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded focus:outline-none"
-          onClick={async () => {
-            const res = await fetch("/api/voices", {
-              method: "POST",
-              headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                text: text.value,
-                language: language.value,
-              }),
-            });
-            const voicesTmp = await res.json();
-            if (Array.isArray(voicesTmp)) {
-              voices.value = voicesTmp as Voice[];
-            }
+    <div class="flex flex-col mb-4 mx-auto p-8 mt-8 w-full items-center">
+      <div class="mb-4 w-3/4">
+        <label
+          for="text"
+          class="block text-gray-700 font-bold mb-2 text-center"
+        >
+          Text
+        </label>
+        <textarea
+          id="text"
+          name="text"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
+          rows={10}
+          placeholder="Enter your text here"
+          onInput={(e) => {
+            // deno-lint-ignore no-explicit-any
+            const value = (e.target as any).value;
+            text.value = value;
+          }}
+        />
+      </div>
+      <div class="mb-6">
+        <label
+          for="language"
+          class="block text-gray-700 font-bold mb-2 text-center"
+        >
+          Language
+        </label>
+        <select
+          id="language"
+          name="language"
+          class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+          onChange={(e) => {
+            // deno-lint-ignore no-explicit-any
+            const value = (e.target as any).value;
+            language.value = value;
           }}
         >
-          Submit
-        </button>
+          {languages.map((l) => (
+            <option
+              key={l.value}
+              value={l.value}
+              selected={l.value === "en-US"}
+            >
+              {l.text}
+            </option>
+          ))}
+        </select>
       </div>
-      <div class="mt-5" />
-      {voices.value.length
-        ? (
-          <div class="mt-3">
-            <h1 class="text-gray-700 font-bold">Voices ({language.value})</h1>
-          </div>
-        )
-        : (
-          <div class="justify-center mx-auto">
-            <h1 class="text-gray-700 font-bold">No voices</h1>
-          </div>
-        )}
-      {voices.value.map((v) => (
-        <VoiceCard key={v.url} text={v.text} url={v.url} />
-      ))}
+      <Button
+        disabled={converting.value}
+        type="submit"
+        onClick={async () => {
+          converting.value = true;
+          const res = await fetch("/api/voices", {
+            method: "POST",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              text: text.value,
+              language: language.value,
+            }),
+          });
+          const voicesTmp = await res.json();
+          if (Array.isArray(voicesTmp)) {
+            voices.value = voicesTmp as Voice[];
+          }
+          converting.value = false;
+        }}
+      >
+        Submit
+      </Button>
+      <div class="mt-4" />
+      <h1 class="text-gray-700 font-bold mb-4">
+        {voices.value.length ? `Voices (${language.value})` : "No voices"}
+      </h1>
+      {converting.value ? <Loader /> : (
+        <>
+          {voices.value.length
+            ? (
+              <Button
+                class="bg-green-300 hover:bg-green-400 text-white font-semibold mb-2"
+                onClick={() =>
+                  voices.value.map((v, i) => downloadFile(v.url, `${i}.mp3`))}
+              >
+                Download All
+              </Button>
+            )
+            : null}
+          {voices.value.map((v, i) => (
+            <VoiceCard key={i} text={v.text} url={v.url} />
+          ))}
+        </>
+      )}
     </div>
   );
 }

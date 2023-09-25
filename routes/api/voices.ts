@@ -16,18 +16,23 @@ export const handler: Handlers<Query> = {
       const data = body as { text: string; language: string };
       const chunks = splitParagraph(data.text);
       const settledRes = await Promise.allSettled(chunks.map(async (c) => {
-        const url = encodeURI(
-          `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,
-        );
-        const dir = "audios";
-        const file = `${truncateString(toHex(c + data.language))}.mp3`;
-        await download(url, { dir, file });
+        try {
+          const url = encodeURI(
+            `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,
+          );
+          const dir = "audios";
+          const file = `${truncateString(toHex(c + data.language))}.mp3`;
+          await download(url, { dir, file });
 
-        const s3Key = `example/${dir}/${file}`;
-        const fileReader = await Deno.open(`${dir}/${file}`);
-        const stream = readableStreamFromReader(fileReader);
-        await uploadObject(s3Key, stream);
-        return { url: getFileUrl(s3Key), text: c };
+          const s3Key = `example/${dir}/${file}`;
+          const fileReader = await Deno.open(`${dir}/${file}`);
+          const stream = readableStreamFromReader(fileReader);
+          await uploadObject(s3Key, stream);
+          return { url: getFileUrl(s3Key), text: c };
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
       }));
       const voiceUrls = settledRes.map((s) =>
         s.status === "fulfilled" ? s.value : s.reason

@@ -35,10 +35,9 @@ export default function Header(props: HeaderProps) {
       <div class="flex justify-between items-center">
         <a href="/" class="shrink-0">
           <img
-            height="48"
             src="/cover.png"
             alt={SITE_NAME + " logo"}
-            class="h-12"
+            class="h-16"
           />
         </a>
         <div class="flex gap-4 items-center">

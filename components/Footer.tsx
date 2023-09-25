@@ -70,9 +70,11 @@ export default function Footer(props: FooterProps) {
         >
           <IconBrandGithub class="h-6 w-6" />
         </a>
-        <a href="https://fresh.deno.dev" target="_blank">
+        {
+          /* <a href="https://fresh.deno.dev" target="_blank">
           <MadeWithFreshBadge />
-        </a>
+        </a> */
+        }
       </nav>
     </footer>
   );

@@ -1,8 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { splitParagraph, toHex, truncateString } from "@/utils/strings.ts";
 import { TRANSLATE_BASE_URL } from "@/utils/constants.ts";
-import { download } from "$download/download.ts";
-import { readableStreamFromReader } from "https://deno.land/std@0.140.0/streams/conversion.ts";
 import { getFileUrl, uploadObject } from "@/utils/s3.ts";
 
 interface Query {
@@ -22,11 +20,11 @@ export const handler: Handlers<Query> = {
           );
           const dir = "audios";
           const file = `${truncateString(toHex(c + data.language))}.mp3`;
-          await download(url, { dir, file });
+          const res = await fetch(url);
+          const blob = await res.blob();
+          const stream = blob.stream();
 
           const s3Key = `example/${dir}/${file}`;
-          const fileReader = await Deno.open(`${dir}/${file}`);
-          const stream = readableStreamFromReader(fileReader);
           await uploadObject(s3Key, stream);
           return { url: getFileUrl(s3Key), text: c };
         } catch (error) {

@@ -5,6 +5,7 @@ import {
   SITE_NAME,
 } from "@/utils/constants.ts";
 import IconBrandGithub from "tabler_icons_tsx/brand-github.tsx";
+import IconBrandTwitter from "tabler_icons_tsx/brand-twitter.tsx";
 
 function MadeWithFreshBadge() {
   return (
@@ -69,6 +70,14 @@ export default function Footer(props: FooterProps) {
           class={LINK_STYLES}
         >
           <IconBrandGithub class="h-6 w-6" />
+        </a>
+        <a
+          href="https://twitter.com/dunkbingg"
+          target="_blank"
+          aria-label="Text2Audio developer on X"
+          class={LINK_STYLES}
+        >
+          <IconBrandTwitter class="h-6 w-6" />
         </a>
         {
           /* <a href="https://fresh.deno.dev" target="_blank">

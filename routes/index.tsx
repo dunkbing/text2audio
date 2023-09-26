@@ -1,6 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 
 import Head from "@/components/Head.tsx";
+import { About } from "@/components/About.tsx";
 import Form from "@/islands/Form.tsx";
 
 export default function Home(ctx: PageProps) {
@@ -15,6 +16,7 @@ export default function Home(ctx: PageProps) {
         />
       </Head>
       <Form />
+      <About />
     </div>
   );
 }

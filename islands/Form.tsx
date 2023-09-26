@@ -320,11 +320,16 @@ const converting = signal(false);
 
 export default function () {
   return (
-    <div class="flex flex-col mb-4 mx-auto p-8 mt-8 w-full items-center">
-      <div class="mb-4 w-3/4">
+    <div class="flex flex-col mb-4 mx-auto px-8 w-full items-center">
+      <span class="text-green-500 text-sm text-center">
+        This tool divides long text into smaller, readable sections while
+        keeping words intact. It automatically handles line breaks and
+        punctuation to maintain readability.
+      </span>
+      <div class="my-4 w-3/4">
         <label
           for="text"
-          class="block text-gray-700 font-bold mb-2 text-center"
+          class="block text-gray-700 font-bold mb-2 text-xl text-center"
         >
           Text
         </label>
@@ -344,7 +349,7 @@ export default function () {
       <div class="mb-6">
         <label
           for="language"
-          class="block text-gray-700 font-bold mb-2 text-center"
+          class="block text-gray-700 font-bold mb-2 text-xl text-center"
         >
           Language
         </label>

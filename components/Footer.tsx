@@ -6,6 +6,7 @@ import {
 } from "@/utils/constants.ts";
 import IconBrandGithub from "tabler_icons_tsx/brand-github.tsx";
 import IconBrandTwitter from "tabler_icons_tsx/brand-twitter.tsx";
+import IconBrandTiktok from "tabler_icons_tsx/brand-tiktok.tsx";
 
 function MadeWithFreshBadge() {
   return (
@@ -59,9 +60,9 @@ export interface FooterProps {
 export default function Footer(props: FooterProps) {
   return (
     <footer
-      class={`${SITE_BAR_STYLES} flex-col md:flex-row mt-8`}
+      class={`${SITE_BAR_STYLES} flex-col items-center md:flex-row mt-8`}
     >
-      <p>© {SITE_NAME}</p>
+      <p>© 2023 {SITE_NAME}</p>
       <nav class={NAV_STYLES}>
         <a
           href="https://github.com/dunkbing"
@@ -78,6 +79,14 @@ export default function Footer(props: FooterProps) {
           class={LINK_STYLES}
         >
           <IconBrandTwitter class="h-6 w-6" />
+        </a>
+        <a
+          href="https://www.tiktok.com/@ninzaech"
+          target="_blank"
+          aria-label="Text2Audio developer on Tiktok"
+          class={LINK_STYLES}
+        >
+          <IconBrandTiktok class="h-6 w-6" />
         </a>
         {
           /* <a href="https://fresh.deno.dev" target="_blank">

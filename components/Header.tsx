@@ -1,9 +1,4 @@
-import {
-  ACTIVE_LINK_STYLES,
-  LINK_STYLES,
-  SITE_BAR_STYLES,
-  SITE_NAME,
-} from "@/utils/constants.ts";
+import { SITE_BAR_STYLES, SITE_NAME } from "@/utils/constants.ts";
 import IconX from "tabler_icons_tsx/x.tsx";
 import IconMenu from "tabler_icons_tsx/menu-2.tsx";
 import { cx } from "@twind/core";
@@ -67,7 +62,7 @@ export default function Header(props: HeaderProps) {
         class={"hidden flex-col gap-x-4 divide-y divide-solid sm:(flex items-center flex-row divide-y-0)"}
       >
         <a
-          href="/about"
+          href="/#about"
           class={NAV_ITEM}
         >
           About

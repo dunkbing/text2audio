@@ -10,6 +10,19 @@ export default function App({ Component, url }: AppProps) {
         <Header
           url={url}
         />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-14330SBM6R"
+        />
+        <script>
+          {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-14330SBM6R');
+  `}
+        </script>
         <Component />
         <Footer url={url} />
       </div>

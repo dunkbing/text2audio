@@ -1,31 +1,14 @@
 import { signal } from "@preact/signals";
 import { useMemo, useState } from "preact/hooks";
+import ToastContext from "fresh_toaster/contexts/toastContext.tsx";
+import Toaster from "fresh_toaster/components/toaster.tsx";
+import { useToaster } from "fresh_toaster/hooks/index.tsx";
+
 import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
+import { downloadFile } from "@/utils/http.ts";
 
 type Voice = { url: string; text: string };
-
-async function downloadFile(url: string, filename: string) {
-  try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const a = document.createElement("a");
-    a.style.display = "none";
-    document.body.appendChild(a);
-
-    const url_1 = window.URL.createObjectURL(blob);
-
-    a.href = url_1;
-    a.download = filename;
-
-    a.click();
-
-    window.URL.revokeObjectURL(url_1);
-    document.body.removeChild(a);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
 
 const VoiceCard = (props: Voice & { key?: string | number }) => {
   const audio = useMemo(() => new Audio(props.url), [props.url]);
@@ -42,6 +25,7 @@ const VoiceCard = (props: Voice & { key?: string | number }) => {
       </div>
       <div class="px-4 pb-4 flex justify-center">
         <Button
+          class="text-white font-semibold"
           onClick={() => {
             if (playing) {
               setPlaying(false);
@@ -56,7 +40,7 @@ const VoiceCard = (props: Voice & { key?: string | number }) => {
         </Button>
         <div class="w-5" />
         <Button
-          class="bg-green-300 hover:bg-green-400 text-white font-semibold px-4 py-2 rounded focus:outline-none"
+          class="bg-green-400 hover:bg-green-500 text-white font-semibold"
           onClick={() => downloadFile(props.url, `${props.key}.mp3`)}
         >
           Download
@@ -318,7 +302,8 @@ const language = signal("en-US");
 const voices = signal<Voice[]>([]);
 const converting = signal(false);
 
-export default function () {
+export default function Form() {
+  const [toasts, toaster] = useToaster();
   return (
     <div class="flex flex-col mb-4 mx-auto px-8 w-full items-center">
       <span class="text-green-500 text-sm text-center">
@@ -375,26 +360,33 @@ export default function () {
         </select>
       </div>
       <Button
+        class="text-white font-semibold"
         disabled={converting.value}
         type="submit"
         onClick={async () => {
           converting.value = true;
-          const res = await fetch("/api/voices", {
-            method: "POST",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              text: text.value,
-              language: language.value,
-            }),
-          });
-          const voicesTmp = await res.json();
-          if (Array.isArray(voicesTmp)) {
-            voices.value = voicesTmp as Voice[];
+          try {
+            const res = await fetch("/api/voices", {
+              method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                text: text.value,
+                language: language.value,
+              }),
+            });
+            const voicesTmp = await res.json();
+            if (Array.isArray(voicesTmp)) {
+              voices.value = voicesTmp as Voice[];
+            }
+            toaster.success("Success");
+          } catch (error) {
+            toaster.error(error.message);
+          } finally {
+            converting.value = false;
           }
-          converting.value = false;
         }}
       >
         Submit
@@ -408,9 +400,13 @@ export default function () {
           {voices.value.length
             ? (
               <Button
-                class="bg-green-300 hover:bg-green-400 text-white font-semibold mb-2"
+                class="bg-green-400 hover:bg-green-500 text-white font-semibold mb-2"
                 onClick={() =>
-                  voices.value.map((v, i) => downloadFile(v.url, `${i}.mp3`))}
+                  voices.value.map((v, i) =>
+                    downloadFile(v.url, `${i}.mp3`).catch((err) =>
+                      toaster.error(err)
+                    )
+                  )}
               >
                 Download All
               </Button>
@@ -421,6 +417,9 @@ export default function () {
           ))}
         </>
       )}
+      <ToastContext.Provider value={toasts.value}>
+        <Toaster position="top-right" />
+      </ToastContext.Provider>
     </div>
   );
 }

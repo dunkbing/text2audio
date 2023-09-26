@@ -1,4 +1,6 @@
-import { Handlers } from "$fresh/server.ts";
+import { Handlers, Status } from "$fresh/server.ts";
+import { createHttpError } from "$std/http/http_errors.ts";
+
 import { splitParagraph, toHex, truncateString } from "@/utils/strings.ts";
 import { TRANSLATE_BASE_URL } from "@/utils/constants.ts";
 import { getFileUrl, uploadObject } from "@/utils/s3.ts";
@@ -39,7 +41,7 @@ export const handler: Handlers<Query> = {
       return Response.json(voiceUrls);
     } catch (_error) {
       console.error(_error);
-      return Response.json({ error: _error });
+      throw createHttpError(Status.InternalServerError, _error.message);
     }
   },
 };

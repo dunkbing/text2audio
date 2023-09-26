@@ -361,7 +361,7 @@ export default function Form() {
       </div>
       <Button
         class="text-white font-semibold"
-        disabled={converting.value}
+        disabled={converting.value || !text.value}
         type="submit"
         onClick={async () => {
           converting.value = true;
@@ -379,7 +379,9 @@ export default function Form() {
             });
             const voicesTmp = await res.json();
             if (Array.isArray(voicesTmp)) {
-              voices.value = voicesTmp as Voice[];
+              voices.value = (voicesTmp as Voice[]).filter((v) =>
+                v.text && v.url
+              );
             }
             toaster.success("Success");
           } catch (error) {

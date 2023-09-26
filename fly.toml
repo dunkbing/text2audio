@@ -1,0 +1,17 @@
+# fly.toml app configuration file generated for text2audio on 2023-09-26T21:10:20+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "text2audio"
+primary_region = "sin"
+
+[build]
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]

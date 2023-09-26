@@ -12,16 +12,13 @@ const s3Client = new S3Client({
 export const uploadObject = (key: string, file: ReadableStream) => {
   const chunks = key.split("/");
   const filename = chunks[chunks.length - 1];
-  try {
-    return s3Client.putObject(key, file, {
-      bucketName: "example",
-      metadata: {
-        "Content-Disposition": `attachment; filename="${filename}"`,
-      },
-    });
-  } catch (err) {
-    console.error("Error", err);
-  }
+  return s3Client.putObject(key, file, {
+    bucketName: "example",
+    partSize: 6 * 1024 * 1024,
+    metadata: {
+      "Content-Disposition": `attachment; filename="${filename}"`,
+    },
+  });
 };
 
 export const getFileUrl = (key: string) => {

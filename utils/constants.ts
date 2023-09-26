@@ -1,4 +1,4 @@
-export const SITE_NAME = "Text2Voice - Text-to-Speech Online Tool";
+export const SITE_NAME = "Text2Audio - Text-to-Speech Online Tool";
 export const SITE_DESCRIPTION =
   "Turn Text into Speech Effortlessly – Our site simplifies the process of converting text into clear, natural-sounding audio.";
 

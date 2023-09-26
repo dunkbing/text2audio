@@ -13,7 +13,7 @@ export const uploadObject = (key: string, file: ReadableStream) => {
   const chunks = key.split("/");
   const filename = chunks[chunks.length - 1];
   return s3Client.putObject(key, file, {
-    bucketName: "example",
+    bucketName: "text2audio",
     partSize: 6 * 1024 * 1024,
     metadata: {
       "Content-Disposition": `attachment; filename="${filename}"`,
@@ -22,5 +22,5 @@ export const uploadObject = (key: string, file: ReadableStream) => {
 };
 
 export const getFileUrl = (key: string) => {
-  return `https://r2.securiwiser.com/${key}`;
+  return s3Client.getPresignedUrl("GET", key, { bucketName: "text2audio" });
 };

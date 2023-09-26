@@ -28,7 +28,7 @@ export const handler: Handlers<Query> = {
 
           const s3Key = `${dir}/${file}`;
           await uploadObject(s3Key, stream);
-          return { url: getFileUrl(`example/${s3Key}`), text: c };
+          return { url: await getFileUrl(s3Key), text: c };
         } catch (error) {
           console.error(error);
           throw error;

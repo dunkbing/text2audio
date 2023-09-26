@@ -306,7 +306,7 @@ export default function Form() {
   const [toasts, toaster] = useToaster();
   return (
     <div class="flex flex-col mb-4 mx-auto px-8 w-full items-center">
-      <span class="text-green-500 text-sm text-center">
+      <span class="text-green-700 text-sm text-center">
         This tool divides long text into smaller, readable sections while
         keeping words intact. It automatically handles line breaks and
         punctuation to maintain readability.

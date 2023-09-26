@@ -14,7 +14,7 @@ export const uploadObject = (key: string, file: ReadableStream) => {
   const filename = chunks[chunks.length - 1];
   try {
     return s3Client.putObject(key, file, {
-      bucketName: "securiwiser",
+      bucketName: "example",
       metadata: {
         "Content-Disposition": `attachment; filename="${filename}"`,
       },

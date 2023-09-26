@@ -12,7 +12,7 @@ export default function App({ Component, url }: AppProps) {
         />
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-14330SBM6R"
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZJF7E4QKYV"
         />
         <script>
           {`
@@ -20,7 +20,7 @@ export default function App({ Component, url }: AppProps) {
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-14330SBM6R');
+    gtag('config', 'G-ZJF7E4QKYV');
   `}
         </script>
         <Component />

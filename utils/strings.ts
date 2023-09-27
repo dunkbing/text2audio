@@ -1,4 +1,4 @@
-export function splitParagraph(text: string, chunkSize = 150) {
+export function splitText(text: string, chunkSize = 150) {
   if (!text || typeof text !== "string" || chunkSize <= 0) {
     return [];
   }

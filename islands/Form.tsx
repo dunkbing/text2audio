@@ -7,6 +7,7 @@ import { useToaster } from "fresh_toaster/hooks/index.tsx";
 import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
 import { downloadFile } from "@/utils/http.ts";
+import { splitText } from "@/utils/strings.ts";
 
 type Voice = { url: string; text: string };
 
@@ -299,6 +300,7 @@ const languages = [
 
 const text = signal("");
 const language = signal("en-US");
+const splitParagraph = signal(true);
 const voices = signal<Voice[]>([]);
 const converting = signal(false);
 
@@ -325,8 +327,7 @@ export default function Form() {
           rows={10}
           placeholder="Enter your text here"
           onInput={(e) => {
-            // deno-lint-ignore no-explicit-any
-            const value = (e.target as any).value;
+            const value = e.currentTarget.value;
             text.value = value;
           }}
         />
@@ -343,8 +344,7 @@ export default function Form() {
           name="language"
           class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           onChange={(e) => {
-            // deno-lint-ignore no-explicit-any
-            const value = (e.target as any).value;
+            const value = e.currentTarget.value;
             language.value = value;
           }}
         >
@@ -358,6 +358,21 @@ export default function Form() {
             </option>
           ))}
         </select>
+      </div>
+      <div class="flex items-center mb-6">
+        <input
+          checked
+          id="green-checkbox"
+          type="checkbox"
+          class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+          onChange={(e) => splitParagraph.value = e.currentTarget.checked}
+        />
+        <label
+          for="green-checkbox"
+          class="ml-2 text-sm font-medium text-gray-900"
+        >
+          Split Paragraph
+        </label>
       </div>
       <Button
         class="text-white font-semibold"
@@ -373,8 +388,9 @@ export default function Form() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                text: text.value,
+                paragraphs: splitText(text.value),
                 language: language.value,
+                splitParagraph: splitParagraph.value,
               }),
             });
             const voicesTmp = await res.json();
@@ -399,7 +415,7 @@ export default function Form() {
       </h1>
       {converting.value ? <Loader /> : (
         <>
-          {voices.value.length
+          {voices.value.length > 1
             ? (
               <Button
                 class="bg-green-400 hover:bg-green-500 text-white font-semibold mb-2"

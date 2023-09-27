@@ -1,9 +1,4 @@
-import {
-  LINK_STYLES,
-  NAV_STYLES,
-  SITE_BAR_STYLES,
-  SITE_NAME,
-} from "@/utils/constants.ts";
+import { LINK_STYLES, NAV_STYLES, SITE_BAR_STYLES } from "@/utils/constants.ts";
 import IconBrandGithub from "tabler_icons_tsx/brand-github.tsx";
 import IconBrandTwitter from "tabler_icons_tsx/brand-twitter.tsx";
 import IconBrandTiktok from "tabler_icons_tsx/brand-tiktok.tsx";
@@ -60,10 +55,13 @@ export interface FooterProps {
 export default function Footer(props: FooterProps) {
   return (
     <footer
-      class={`${SITE_BAR_STYLES} flex-col items-center md:flex-row mt-8`}
+      class={`${SITE_BAR_STYLES} flex items-center mt-8 text-center`}
     >
-      <p>© 2023 {SITE_NAME}</p>
-      <nav class={NAV_STYLES}>
+      <span class="text-center">
+        text2audio.cc © 2023 Text2Audio. All rights reserved.
+      </span>
+      {
+        /* <nav class={NAV_STYLES}>
         <a
           href="https://github.com/dunkbing"
           target="_blank"
@@ -88,12 +86,8 @@ export default function Footer(props: FooterProps) {
         >
           <IconBrandTiktok class="h-6 w-6" />
         </a>
-        {
-          /* <a href="https://fresh.deno.dev" target="_blank">
-          <MadeWithFreshBadge />
-        </a> */
-        }
-      </nav>
+      </nav> */
+      }
     </footer>
   );
 }

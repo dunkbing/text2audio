@@ -1,7 +1,7 @@
-import { SITE_BAR_STYLES, SITE_NAME } from "@/utils/constants.ts";
 import IconX from "tabler_icons_tsx/x.tsx";
 import IconMenu from "tabler_icons_tsx/menu-2.tsx";
 import { cx } from "@twind/core";
+import { SITE_BAR_STYLES, SITE_NAME } from "@/utils/constants.ts";
 
 export interface HeaderProps {
   /**

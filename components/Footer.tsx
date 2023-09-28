@@ -55,14 +55,17 @@ export interface FooterProps {
 export default function Footer(props: FooterProps) {
   return (
     <footer
-      class={`${SITE_BAR_STYLES} flex items-center mt-8 text-center`}
+      class={`${SITE_BAR_STYLES} flex flex-col items-center mt-8 text-center`}
     >
+      <a class="mb-2" target="_blank" href="https://fresh.deno.dev">
+        <MadeWithFreshBadge />
+      </a>
       <span class="text-center">
         text2audio.cc © 2023 Text2Audio. All rights reserved.
       </span>
-      {
-        /* <nav class={NAV_STYLES}>
-        <a
+      <nav class={NAV_STYLES}>
+        {
+          /* <a
           href="https://github.com/dunkbing"
           target="_blank"
           aria-label="Text2Audio repo on GitHub"
@@ -85,9 +88,9 @@ export default function Footer(props: FooterProps) {
           class={LINK_STYLES}
         >
           <IconBrandTiktok class="h-6 w-6" />
-        </a>
-      </nav> */
-      }
+        </a> */
+        }
+      </nav>
     </footer>
   );
 }

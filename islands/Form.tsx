@@ -115,7 +115,7 @@ export default function Form() {
       </div>
       <div class="flex items-center mb-6">
         <input
-          checked
+          checked={splitParagraph.value}
           id="green-checkbox"
           type="checkbox"
           class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"

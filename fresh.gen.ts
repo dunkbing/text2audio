@@ -4,25 +4,31 @@
 
 import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_app.tsx";
-import * as $2 from "./routes/api/audio.ts";
-import * as $3 from "./routes/api/joke.ts";
-import * as $4 from "./routes/greet/[name].tsx";
-import * as $5 from "./routes/index.tsx";
-import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/Form.tsx";
+import * as $2 from "./routes/api.tsx";
+import * as $3 from "./routes/api/audio.ts";
+import * as $4 from "./routes/api/joke.ts";
+import * as $5 from "./routes/greet/[name].tsx";
+import * as $6 from "./routes/index.tsx";
+import * as $$0 from "./islands/API.tsx";
+import * as $$1 from "./islands/Code.tsx";
+import * as $$2 from "./islands/Counter.tsx";
+import * as $$3 from "./islands/Form.tsx";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $0,
     "./routes/_app.tsx": $1,
-    "./routes/api/audio.ts": $2,
-    "./routes/api/joke.ts": $3,
-    "./routes/greet/[name].tsx": $4,
-    "./routes/index.tsx": $5,
+    "./routes/api.tsx": $2,
+    "./routes/api/audio.ts": $3,
+    "./routes/api/joke.ts": $4,
+    "./routes/greet/[name].tsx": $5,
+    "./routes/index.tsx": $6,
   },
   islands: {
-    "./islands/Counter.tsx": $$0,
-    "./islands/Form.tsx": $$1,
+    "./islands/API.tsx": $$0,
+    "./islands/Code.tsx": $$1,
+    "./islands/Counter.tsx": $$2,
+    "./islands/Form.tsx": $$3,
   },
   baseUrl: import.meta.url,
 };

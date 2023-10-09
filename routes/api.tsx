@@ -1,13 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 
-import Form from "@/islands/Form.tsx";
 import Head from "@/components/Head.tsx";
-import { About } from "@/components/About.tsx";
-import { FAQ } from "@/components/FAQ.tsx";
-import { TotalVoices } from "@/components/TotalVoices.tsx";
-import { kv, voicesEntryKey } from "@/utils/kv.ts";
-
-const voicesEntry = await kv.get(voicesEntryKey);
+import API from "@/islands/API.tsx";
 
 export default function Home(ctx: PageProps) {
   return (
@@ -20,10 +14,7 @@ export default function Home(ctx: PageProps) {
           rel="preload"
         />
       </Head>
-      <Form />
-      <TotalVoices total={voicesEntry.value} />
-      <FAQ />
-      <About />
+      <API baseUrl={ctx.url.origin} />
     </div>
   );
 }

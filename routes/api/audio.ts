@@ -2,7 +2,7 @@ import { Handlers, Status } from "$fresh/server.ts";
 import { createHttpError } from "$std/http/http_errors.ts";
 import { mergeReadableStreams } from "$std/streams/mod.ts";
 
-import { toHex, truncateString } from "@/utils/strings.ts";
+import { splitText, toHex, truncateString } from "@/utils/strings.ts";
 import { TRANSLATE_BASE_URL } from "@/utils/constants.ts";
 import { getFileUrl, uploadObject } from "@/utils/s3.ts";
 import { kv, voicesEntryKey } from "@/utils/kv.ts";
@@ -28,11 +28,13 @@ export const handler: Handlers<Query> = {
     try {
       const body = await _req.json();
       const data = body as {
-        paragraphs: string[];
+        paragraphs: string | string[];
         language: string;
         splitParagraph: boolean;
       };
-      const paragraphs = data.paragraphs;
+      const paragraphs = Array.isArray(data.paragraphs)
+        ? data.paragraphs
+        : splitText(data.paragraphs);
       void increaseTotalAudio(paragraphs.length);
       const streams = await Promise.all(paragraphs.map(async (c) => {
         const url = encodeURI(

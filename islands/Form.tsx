@@ -4,7 +4,7 @@ import ToastContext from "fresh_toaster/contexts/toastContext.tsx";
 import Toaster from "fresh_toaster/components/toaster.tsx";
 import { useToaster } from "fresh_toaster/hooks/index.tsx";
 
-import { Button } from "@/components/Button.tsx";
+import { Button } from "../components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
 import { downloadFile } from "@/utils/http.ts";
 import { splitText } from "@/utils/strings.ts";

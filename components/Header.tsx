@@ -63,6 +63,12 @@ export default function Header(props: HeaderProps) {
         class={"hidden flex-col gap-x-4 divide-y divide-solid sm:(flex items-center flex-row divide-y-0)"}
       >
         <a
+          href="/api"
+          class={NAV_ITEM}
+        >
+          API
+        </a>
+        <a
           href="/#faq"
           class={NAV_ITEM}
         >

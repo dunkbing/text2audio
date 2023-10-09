@@ -5,12 +5,23 @@ import { mergeReadableStreams } from "$std/streams/mod.ts";
 import { toHex, truncateString } from "@/utils/strings.ts";
 import { TRANSLATE_BASE_URL } from "@/utils/constants.ts";
 import { getFileUrl, uploadObject } from "@/utils/s3.ts";
+import { kv, voicesEntryKey } from "@/utils/kv.ts";
 
 interface Query {
   voiceUrls: string[];
 }
 
 const audioDir = "audios";
+
+async function increaseTotalAudio(num: number) {
+  try {
+    const voicesEntry = await kv.get(voicesEntryKey);
+    const currentTotal = voicesEntry.value;
+    await kv.set(voicesEntryKey, currentTotal + num);
+  } catch (error) {
+    console.error("increaseTotalAudio error", error);
+  }
+}
 
 export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
@@ -22,6 +33,7 @@ export const handler: Handlers<Query> = {
         splitParagraph: boolean;
       };
       const paragraphs = data.paragraphs;
+      void increaseTotalAudio(paragraphs.length);
       const streams = await Promise.all(paragraphs.map(async (c) => {
         const url = encodeURI(
           `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,

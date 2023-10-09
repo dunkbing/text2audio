@@ -1,6 +1,6 @@
 export const kv = await Deno.openKv();
 
-export const voicesEntryKey = ["voices", "total"];
+export const voicesEntryKey = ["audios", "total"];
 
 const voicesEntry = await kv.get(voicesEntryKey);
 if (!voicesEntry.value) {

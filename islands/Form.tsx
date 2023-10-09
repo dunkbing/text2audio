@@ -411,7 +411,7 @@ export default function Form() {
       </Button>
       <div class="mt-4" />
       <h1 class="text-gray-700 font-bold mb-4">
-        {voices.value.length ? `Voices (${language.value})` : "No voices"}
+        {voices.value.length ? `Audio (${language.value})` : "No audio"}
       </h1>
       {converting.value ? <Loader /> : (
         <>

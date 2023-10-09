@@ -1,4 +1,4 @@
-import Code from "./Code.tsx";
+import Code from "@/islands/Code.tsx";
 
 export default function API(props: { baseUrl: string }) {
   const sampleResponse = [{
@@ -7,8 +7,8 @@ export default function API(props: { baseUrl: string }) {
   }];
 
   return (
-    <div class="flex flex-col items-center justify-center px-5">
-      <div class="max-w-2xl mx-auto p-8 bg-white rounded shadow-lg">
+    <div class="flex flex-col items-center justify-center px-5 bg-white rounded shadow-lg p-8">
+      <div>
         <h1 class="text-2xl font-semibold mb-4">Text2Audio API Instructions</h1>
 
         <p class="mb-4">

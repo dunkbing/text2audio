@@ -60,12 +60,8 @@ export default function Footer(props: FooterProps) {
       <a class="mb-2" target="_blank" href="https://fresh.deno.dev">
         <MadeWithFreshBadge />
       </a>
-      <span class="text-center">
-        text2audio.cc © 2023 Text2Audio. All rights reserved.
-      </span>
       <nav class={NAV_STYLES}>
-        {
-          /* <a
+        <a
           href="https://github.com/dunkbing"
           target="_blank"
           aria-label="Text2Audio repo on GitHub"
@@ -81,7 +77,8 @@ export default function Footer(props: FooterProps) {
         >
           <IconBrandTwitter class="h-6 w-6" />
         </a>
-        <a
+        {
+          /* <a
           href="https://www.tiktok.com/@ninzaech"
           target="_blank"
           aria-label="Text2Audio developer on Tiktok"
@@ -91,6 +88,9 @@ export default function Footer(props: FooterProps) {
         </a> */
         }
       </nav>
+      <span class="text-center mt-1">
+        text2audio.cc © 2023 Text2Audio. All rights reserved.
+      </span>
     </footer>
   );
 }

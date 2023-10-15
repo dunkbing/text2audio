@@ -91,6 +91,16 @@ export default function Footer(props: FooterProps) {
       <span class="text-center mt-1">
         text2audio.cc © 2023 Text2Audio. All rights reserved.
       </span>
+      <div className="px-8 mx-auto">
+        Built by{" "}
+        <a
+          className="font-bold text-gray-900"
+          href="https://dunkbing.github.io/"
+          target="_blank"
+        >
+          dunkbing
+        </a>
+      </div>
     </footer>
   );
 }

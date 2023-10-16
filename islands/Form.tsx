@@ -52,7 +52,7 @@ const VoiceCard = (props: Audio & { key?: string | number }) => {
   );
 };
 
-const text = signal("");
+const text = signal(" ");
 const language = signal("en-US");
 const splitParagraph = signal(true);
 const audios = signal<Audio[]>([]);
@@ -133,6 +133,9 @@ export default function Form() {
         disabled={converting.value || !text.value}
         type="submit"
         onClick={async () => {
+          text.value = text.value.trim();
+          if (!text.value) return;
+
           converting.value = true;
           try {
             const res = await fetch("/api/audio", {
@@ -147,13 +150,17 @@ export default function Form() {
                 splitParagraph: splitParagraph.value,
               }),
             });
-            const voicesTmp = await res.json();
-            if (Array.isArray(voicesTmp)) {
-              audios.value = (voicesTmp as Audio[]).filter((v) =>
-                v.text && v.url
-              );
+            if (res.ok) {
+              const voicesTmp = await res.json();
+              if (Array.isArray(voicesTmp)) {
+                audios.value = (voicesTmp as Audio[]).filter((v) =>
+                  v.text && v.url
+                );
+              }
+              toaster.success("Success");
+            } else {
+              toaster.error("Error!!");
             }
-            toaster.success("Success");
           } catch (error) {
             toaster.error(error.message);
           } finally {

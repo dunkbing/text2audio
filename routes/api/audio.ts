@@ -27,6 +27,7 @@ export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
     try {
       const body = await _req.json();
+      console.log(body);
       const data = body as {
         paragraphs: string | string[];
         language: string;

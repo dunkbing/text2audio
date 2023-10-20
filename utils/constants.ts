@@ -17,249 +17,66 @@ export const HEADING_WITH_MARGIN_STYLES = HEADING_STYLES + " mb-8";
 export const TRANSLATE_BASE_URL =
   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob";
 
-export const languages = [
-  {
-    "text": "Afrikaans",
-    "value": "af-ZA",
-  },
-  {
-    "text": "Albanian",
-    "value": "sq",
-  },
-  {
-    "text": "Arabic",
-    "value": "ar-AE",
-  },
-  {
-    "text": "Armenian",
-    "value": "hy",
-  },
-  {
-    "text": "Bengali (Bangladesh)",
-    "value": "bn-BD",
-  },
-  {
-    "text": "Bengali (India)",
-    "value": "bn-IN",
-  },
-  {
-    "text": "Bosnian",
-    "value": "bs",
-  },
-  {
-    "text": "Burmese (Myanmar)",
-    "value": "my",
-  },
-  {
-    "text": "Catalan",
-    "value": "ca-ES",
-  },
-  {
-    "text": "Chinese",
-    "value": "cmn-Hant-TW",
-  },
-  {
-    "text": "Croatian",
-    "value": "hr-HR",
-  },
-  {
-    "text": "Czech",
-    "value": "cs-CZ",
-  },
-  {
-    "text": "Danish",
-    "value": "da-DK",
-  },
-  {
-    "text": "Dutch",
-    "value": "nl-NL",
-  },
-  {
-    "text": "English (Australia)",
-    "value": "en-AU",
-  },
-  {
-    "text": "English (United Kingdom)",
-    "value": "en-GB",
-  },
-  {
-    "text": "English (United States)",
-    "value": "en-US",
-  },
-  {
-    "text": "Esperanto",
-    "value": "eo",
-  },
-  {
-    "text": "Estonian",
-    "value": "et",
-  },
-  {
-    "text": "Filipino",
-    "value": "fil-PH",
-  },
-  {
-    "text": "Finnish",
-    "value": "fi-FI",
-  },
-  {
-    "text": "French",
-    "value": "fr-FR",
-  },
-  {
-    "text": "French (Canada)",
-    "value": "fr-CA",
-  },
-  {
-    "text": "German",
-    "value": "de-DE",
-  },
-  {
-    "text": "Greek",
-    "value": "el-GR",
-  },
-  {
-    "text": "Gujarati",
-    "value": "gu",
-  },
-  {
-    "text": "Hindi",
-    "value": "hi-IN",
-  },
-  {
-    "text": "Hungarian",
-    "value": "hu-HU",
-  },
-  {
-    "text": "Icelandic",
-    "value": "is-IS",
-  },
-  {
-    "text": "Indonesian",
-    "value": "id-ID",
-  },
-  {
-    "text": "Italian",
-    "value": "it-IT",
-  },
-  {
-    "text": "Japanese (Japan)",
-    "value": "ja-JP",
-  },
-  {
-    "text": "Kannada",
-    "value": "kn",
-  },
-  {
-    "text": "Khmer",
-    "value": "km",
-  },
-  {
-    "text": "Korean",
-    "value": "ko-KR",
-  },
-  {
-    "text": "Latin",
-    "value": "la",
-  },
-  {
-    "text": "Latvian",
-    "value": "lv",
-  },
-  {
-    "text": "Macedonian",
-    "value": "mk",
-  },
-  {
-    "text": "Malayalam",
-    "value": "ml",
-  },
-  {
-    "text": "Marathi",
-    "value": "mr",
-  },
-  {
-    "text": "Nepali",
-    "value": "ne",
-  },
-  {
-    "text": "Norwegian",
-    "value": "nb-NO",
-  },
-  {
-    "text": "Polish",
-    "value": "pl-PL",
-  },
-  {
-    "text": "Portuguese",
-    "value": "pt-BR",
-  },
-  {
-    "text": "Romanian",
-    "value": "ro-RO",
-  },
-  {
-    "text": "Russian",
-    "value": "ru-RU",
-  },
-  {
-    "text": "Serbian",
-    "value": "sr-RS",
-  },
-  {
-    "text": "Sinhala",
-    "value": "si",
-  },
-  {
-    "text": "Slovak",
-    "value": "sk-SK",
-  },
-  {
-    "text": "Spanish (Mexico)",
-    "value": "es-MX",
-  },
-  {
-    "text": "Spanish (Spain)",
-    "value": "es-ES",
-  },
-  {
-    "text": "Swahili",
-    "value": "sw",
-  },
-  {
-    "text": "Swedish",
-    "value": "sv-SE",
-  },
-  {
-    "text": "Tamil",
-    "value": "ta",
-  },
-  {
-    "text": "Telugu",
-    "value": "te",
-  },
-  {
-    "text": "Thai",
-    "value": "th-TH",
-  },
-  {
-    "text": "Turkish",
-    "value": "tr-TR",
-  },
-  {
-    "text": "Ukrainian",
-    "value": "uk-UA",
-  },
-  {
-    "text": "Urdu",
-    "value": "ur",
-  },
-  {
-    "text": "Vietnamese",
-    "value": "vi-VN",
-  },
-  {
-    "text": "Welsh",
-    "value": "cy",
-  },
-];
+export const languages2 = {
+  "af-ZA": "Afrikaans",
+  "sq": "Albanian",
+  "ar-AE": "Arabic",
+  "hy": "Armenian",
+  "bn-BD": "Bengali (Bangladesh)",
+  "bn-IN": "Bengali (India)",
+  "bs": "Bosnian",
+  "my": "Burmese (Myanmar)",
+  "ca-ES": "Catalan",
+  "cmn-Hant-TW": "Chinese",
+  "hr-HR": "Croatian",
+  "cs-CZ": "Czech",
+  "da-DK": "Danish",
+  "nl-NL": "Dutch",
+  "en-AU": "English (Australia)",
+  "en-GB": "English (United Kingdom)",
+  "en-US": "English (United States)",
+  "eo": "Esperanto",
+  "et": "Estonian",
+  "fil-PH": "Filipino",
+  "fi-FI": "Finnish",
+  "fr-FR": "French",
+  "fr-CA": "French (Canada)",
+  "de-DE": "German",
+  "el-GR": "Greek",
+  "gu": "Gujarati",
+  "hi-IN": "Hindi",
+  "hu-HU": "Hungarian",
+  "is-IS": "Icelandic",
+  "id-ID": "Indonesian",
+  "it-IT": "Italian",
+  "ja-JP": "Japanese (Japan)",
+  "kn": "Kannada",
+  "km": "Khmer",
+  "ko-KR": "Korean",
+  "la": "Latin",
+  "lv": "Latvian",
+  "mk": "Macedonian",
+  "ml": "Malayalam",
+  "mr": "Marathi",
+  "ne": "Nepali",
+  "nb-NO": "Norwegian",
+  "pl-PL": "Polish",
+  "pt-BR": "Portuguese",
+  "ro-RO": "Romanian",
+  "ru-RU": "Russian",
+  "sr-RS": "Serbian",
+  "si": "Sinhala",
+  "sk-SK": "Slovak",
+  "es-MX": "Spanish (Mexico)",
+  "es-ES": "Spanish (Spain)",
+  "sw": "Swahili",
+  "sv-SE": "Swedish",
+  "ta": "Tamil",
+  "te": "Telugu",
+  "th-TH": "Thai",
+  "tr-TR": "Turkish",
+  "uk-UA": "Ukrainian",
+  "ur": "Urdu",
+  "vi-VN": "Vietnamese",
+  "cy": "Welsh",
+};

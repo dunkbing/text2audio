@@ -1,14 +1,14 @@
 import { signal } from "@preact/signals";
-import { useMemo, useState } from "preact/hooks";
+import { useMemo, useRef, useState } from "preact/hooks";
 import ToastContext from "fresh_toaster/contexts/toastContext.tsx";
 import Toaster from "fresh_toaster/components/toaster.tsx";
 import { useToaster } from "fresh_toaster/hooks/index.tsx";
 
-import { Button } from "../components/Button.tsx";
+import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
 import { downloadFile } from "@/utils/http.ts";
 import { splitText } from "@/utils/strings.ts";
-import { languages } from "@/utils/constants.ts";
+import { languages2 } from "@/utils/constants.ts";
 
 type Audio = { url: string; text: string };
 
@@ -52,89 +52,25 @@ const VoiceCard = (props: Audio & { key?: string | number }) => {
   );
 };
 
-const text = signal(" ");
-const language = signal("en-US");
 const splitParagraph = signal(true);
 const audios = signal<Audio[]>([]);
 const converting = signal(false);
 
 export default function Form() {
   const [toasts, toaster] = useToaster();
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const selectRef = useRef<HTMLSelectElement>(null);
+
   return (
-    <div class="flex flex-col mb-4 mx-auto px-8 w-full items-center">
-      <span class="text-green-700 text-sm text-center">
-        This tool divides long text into smaller, readable sections while
-        keeping words intact. It automatically handles line breaks and
-        punctuation to maintain readability.
-      </span>
-      <div class="my-4 w-3/4">
-        <label
-          for="text"
-          class="block text-gray-700 font-bold mb-2 text-xl text-center"
-        >
-          Text
-        </label>
-        <textarea
-          id="text"
-          name="text"
-          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
-          rows={10}
-          placeholder="Enter your text here"
-          onInput={(e) => {
-            const value = e.currentTarget.value;
-            text.value = value;
-          }}
-        />
-      </div>
-      <div class="mb-6">
-        <label
-          for="language"
-          class="block text-gray-700 font-bold mb-2 text-xl text-center"
-        >
-          Language
-        </label>
-        <select
-          id="language"
-          name="language"
-          class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-          onChange={(e) => {
-            const value = e.currentTarget.value;
-            language.value = value;
-          }}
-        >
-          {languages.map((l) => (
-            <option
-              key={l.value}
-              value={l.value}
-              selected={l.value === "en-US"}
-            >
-              {l.text}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div class="flex items-center mb-6">
-        <input
-          checked={splitParagraph.value}
-          id="green-checkbox"
-          type="checkbox"
-          class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
-          onChange={(e) => splitParagraph.value = e.currentTarget.checked}
-        />
-        <label
-          for="green-checkbox"
-          class="ml-2 text-sm font-medium text-gray-900"
-        >
-          Split Paragraph
-        </label>
-      </div>
-      <Button
-        class="text-white font-semibold"
-        disabled={converting.value || !text.value}
-        type="submit"
-        onClick={async () => {
-          text.value = text.value.trim();
-          if (!text.value) return;
+    <>
+      <form
+        class="flex flex-col mb-4 mx-auto px-8 w-full items-center"
+        method="POST"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const text = textAreaRef.current?.value.trim();
+          if (!text) return;
+          const language = selectRef.current?.value;
 
           converting.value = true;
           try {
@@ -145,8 +81,8 @@ export default function Form() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                paragraphs: splitText(text.value),
-                language: language.value,
+                paragraphs: splitText(text),
+                language,
                 splitParagraph: splitParagraph.value,
               }),
             });
@@ -168,12 +104,84 @@ export default function Form() {
           }
         }}
       >
-        Submit
-      </Button>
-      <div class="mt-4" />
-      <h1 class="text-gray-700 font-bold mb-4">
-        {audios.value.length ? `Audio (${language.value})` : "No audio"}
-      </h1>
+        <span class="text-green-700 text-sm text-center">
+          This tool divides long text into smaller, readable sections while
+          keeping words intact. It automatically handles line breaks and
+          punctuation to maintain readability.
+        </span>
+        <div class="my-4 w-3/4">
+          <label
+            for="text"
+            class="block text-gray-700 font-bold mb-2 text-xl text-center"
+          >
+            Text
+          </label>
+          <textarea
+            id="text"
+            name="text"
+            ref={textAreaRef}
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
+            rows={10}
+            placeholder="Enter your text here"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            for="language"
+            class="block text-gray-700 font-bold mb-2 text-xl text-center"
+          >
+            Language
+          </label>
+          <select
+            id="language"
+            name="language"
+            ref={selectRef}
+            class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+          >
+            {Object.entries(languages2).map(([k, v]) => (
+              <option
+                key={k}
+                value={k}
+                selected={k === "en-US"}
+              >
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div class="flex items-center mb-6">
+          <input
+            checked={splitParagraph.value}
+            id="green-checkbox"
+            type="checkbox"
+            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+            onChange={(e) => splitParagraph.value = e.currentTarget.checked}
+          />
+          <label
+            for="green-checkbox"
+            class="ml-2 text-sm font-medium text-gray-900"
+          >
+            Split Paragraph
+          </label>
+        </div>
+        <Button
+          class="text-white font-semibold"
+          disabled={converting.value}
+          type="submit"
+          onClick={async () => {
+          }}
+        >
+          Submit
+        </Button>
+        <div class="mt-4" />
+        <h1 class="text-gray-700 font-bold">
+          {audios.value.length ? "Audio" : "No audio"}
+        </h1>
+        <ToastContext.Provider value={toasts.value}>
+          <Toaster position="top-right" />
+        </ToastContext.Provider>
+      </form>
       {converting.value ? <Loader /> : (
         <>
           {audios.value.length > 1
@@ -196,9 +204,6 @@ export default function Form() {
           ))}
         </>
       )}
-      <ToastContext.Provider value={toasts.value}>
-        <Toaster position="top-right" />
-      </ToastContext.Provider>
-    </div>
+    </>
   );
 }

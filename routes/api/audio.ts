@@ -32,6 +32,7 @@ export const handler: Handlers<Query> = {
         language: string;
         splitParagraph: boolean;
       };
+      console.log(data.language, data.splitParagraph);
       const paragraphs = Array.isArray(data.paragraphs)
         ? data.paragraphs
         : splitText(data.paragraphs);

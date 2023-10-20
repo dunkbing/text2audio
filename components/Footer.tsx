@@ -57,7 +57,7 @@ export default function Footer(props: FooterProps) {
     <footer
       class={`${SITE_BAR_STYLES} flex flex-col items-center mt-8 text-center`}
     >
-      <a class="mb-2" target="_blank" href="https://fresh.deno.dev">
+      <a class="mb-3" target="_blank" href="https://fresh.deno.dev">
         <MadeWithFreshBadge />
       </a>
       <nav class={NAV_STYLES}>
@@ -67,7 +67,7 @@ export default function Footer(props: FooterProps) {
           aria-label="Text2Audio repo on GitHub"
           class={LINK_STYLES}
         >
-          <IconBrandGithub class="h-6 w-6" />
+          <IconBrandGithub class="h-12 w-12" />
         </a>
         <a
           href="https://twitter.com/dunkbingg"
@@ -75,7 +75,7 @@ export default function Footer(props: FooterProps) {
           aria-label="Text2Audio developer on X"
           class={LINK_STYLES}
         >
-          <IconBrandTwitter class="h-6 w-6" />
+          <IconBrandTwitter class="h-12 w-12" />
         </a>
         {
           /* <a

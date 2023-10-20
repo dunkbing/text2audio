@@ -80,6 +80,12 @@ export default function Header(props: HeaderProps) {
         >
           About
         </a>
+        <a
+          href="/feedback"
+          class={NAV_ITEM}
+        >
+          Feedback
+        </a>
       </nav>
     </header>
   );

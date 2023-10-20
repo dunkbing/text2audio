@@ -7,13 +7,16 @@ import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/api.tsx";
 import * as $3 from "./routes/api/_middleware.ts";
 import * as $4 from "./routes/api/audio.ts";
-import * as $5 from "./routes/api/joke.ts";
-import * as $6 from "./routes/greet/[name].tsx";
-import * as $7 from "./routes/index.tsx";
+import * as $5 from "./routes/api/feedback.ts";
+import * as $6 from "./routes/api/joke.ts";
+import * as $7 from "./routes/feedback.tsx";
+import * as $8 from "./routes/greet/[name].tsx";
+import * as $9 from "./routes/index.tsx";
 import * as $$0 from "./islands/API.tsx";
 import * as $$1 from "./islands/Code.tsx";
 import * as $$2 from "./islands/Counter.tsx";
-import * as $$3 from "./islands/Form.tsx";
+import * as $$3 from "./islands/FeedbackForm.tsx";
+import * as $$4 from "./islands/Form.tsx";
 
 const manifest = {
   routes: {
@@ -22,15 +25,18 @@ const manifest = {
     "./routes/api.tsx": $2,
     "./routes/api/_middleware.ts": $3,
     "./routes/api/audio.ts": $4,
-    "./routes/api/joke.ts": $5,
-    "./routes/greet/[name].tsx": $6,
-    "./routes/index.tsx": $7,
+    "./routes/api/feedback.ts": $5,
+    "./routes/api/joke.ts": $6,
+    "./routes/feedback.tsx": $7,
+    "./routes/greet/[name].tsx": $8,
+    "./routes/index.tsx": $9,
   },
   islands: {
     "./islands/API.tsx": $$0,
     "./islands/Code.tsx": $$1,
     "./islands/Counter.tsx": $$2,
-    "./islands/Form.tsx": $$3,
+    "./islands/FeedbackForm.tsx": $$3,
+    "./islands/Form.tsx": $$4,
   },
   baseUrl: import.meta.url,
 };

@@ -27,7 +27,6 @@ export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
     try {
       const body = await _req.json();
-      console.log(body);
       const data = body as {
         paragraphs: string | string[];
         language: string;
@@ -38,6 +37,7 @@ export const handler: Handlers<Query> = {
         : splitText(data.paragraphs);
       void increaseTotalAudio(paragraphs.length);
       const streams = await Promise.all(paragraphs.map(async (c) => {
+        console.log(c);
         const url = encodeURI(
           `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,
         );

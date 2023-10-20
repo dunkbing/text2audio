@@ -120,7 +120,7 @@ export default function Form() {
             id="text"
             name="text"
             ref={textAreaRef}
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black"
+            class="w-full px-3 py-2 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-500 text-black shadow-xl"
             rows={10}
             placeholder="Enter your text here"
             required
@@ -137,7 +137,7 @@ export default function Form() {
             id="language"
             name="language"
             ref={selectRef}
-            class="px-3 text-black py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            class="px-3 text-black py-2 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-500"
           >
             {Object.entries(languages2).map(([k, v]) => (
               <option

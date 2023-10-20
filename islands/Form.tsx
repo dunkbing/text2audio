@@ -169,8 +169,6 @@ export default function Form() {
           class="text-white font-semibold"
           disabled={converting.value}
           type="submit"
-          onClick={async () => {
-          }}
         >
           Submit
         </Button>

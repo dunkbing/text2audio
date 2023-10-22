@@ -1,10 +1,8 @@
 function formatNumber(number: number) {
   if (number >= 1000000) {
     return (number >= 2000000) ? Math.floor(number / 1000000) + "M+" : "1M+";
-  } else if (number >= 1000) {
-    return (number >= 2000) ? Math.floor(number / 1000) + "K+" : "1K+";
   }
-  return number.toString();
+  return number.toLocaleString("en-US");
 }
 
 export function TotalVoices(props: { total: number }) {

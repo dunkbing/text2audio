@@ -49,3 +49,26 @@ export function truncateString(inputString: string, maxLength = 20) {
     return inputString.substring(0, maxLength);
   }
 }
+
+export function splitArray(array: Array<string>, size = 200) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
+
+export function uniqFast(arr: Array<string>) {
+  const seen: Record<string, number> = {};
+  const out = [];
+  const len = arr.length;
+  let j = 0;
+  for (let i = 0; i < len; i++) {
+    const item = arr[i];
+    if (seen[item] !== 1) {
+      seen[item] = 1;
+      out[j++] = item;
+    }
+  }
+  return out;
+}

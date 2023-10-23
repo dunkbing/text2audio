@@ -38,13 +38,10 @@ export const handler: Handlers<Query> = {
         language: string;
         splitParagraph: boolean;
       };
-      const paragraphs = splitArray(
-        uniqFast(
-          Array.isArray(data.paragraphs)
-            ? data.paragraphs
-            : splitText(data.paragraphs),
-        ),
-        100,
+      const uniqueParagraphs = uniqFast(
+        Array.isArray(data.paragraphs)
+          ? data.paragraphs
+          : splitText(data.paragraphs),
       );
       console.log(
         "------",
@@ -52,9 +49,14 @@ export const handler: Handlers<Query> = {
         _req.headers.get("user-agent"),
         data.language,
         data.splitParagraph,
+        uniqueParagraphs.length,
         "------",
       );
-      void increaseTotalAudio(paragraphs.length);
+      void increaseTotalAudio(uniqueParagraphs.length);
+      const paragraphs = splitArray(
+        uniqueParagraphs,
+        100,
+      );
 
       const streams = [];
       for (const subParagraphs of paragraphs) {

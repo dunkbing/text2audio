@@ -48,6 +48,8 @@ export const handler: Handlers<Query> = {
       );
       console.log(
         "------",
+        _req.headers.get("origin"),
+        _req.headers.get("user-agent"),
         data.language,
         data.splitParagraph,
         "------",

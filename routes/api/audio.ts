@@ -45,7 +45,6 @@ export const handler: Handlers<Query> = {
       );
       console.log(
         "------",
-        _req.headers.get("origin"),
         _req.headers.get("user-agent"),
         data.language,
         data.splitParagraph,
@@ -58,6 +57,7 @@ export const handler: Handlers<Query> = {
         100,
       );
 
+      console.log("converting----");
       const streams = [];
       for (const subParagraphs of paragraphs) {
         const subStreams = await Promise.all(subParagraphs.map(async (c) => {
@@ -75,6 +75,7 @@ export const handler: Handlers<Query> = {
         streams.push(subStreams);
       }
 
+      console.log("uploading----");
       const voiceUrls = [];
       if (data.splitParagraph) {
         for (const subStreams of streams) {

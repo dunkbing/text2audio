@@ -52,7 +52,7 @@ const VoiceCard = (props: Audio & { key?: string | number }) => {
   );
 };
 
-const splitParagraph = signal(true);
+const splitParagraph = signal(false);
 const audios = signal<Audio[]>([]);
 const converting = signal(false);
 

@@ -54,11 +54,11 @@ export const handler: Handlers<Query> = {
       void increaseTotalAudio(uniqueParagraphs.length);
       const paragraphs = splitArray(
         uniqueParagraphs,
-        100,
+        data.splitParagraph ? 40 : 100,
       );
 
       console.log("converting----");
-      const streams = [];
+      const voiceUrls = [];
       for (const subParagraphs of paragraphs) {
         const subStreams = await Promise.all(subParagraphs.map(async (c) => {
           const url = encodeURI(
@@ -72,13 +72,7 @@ export const handler: Handlers<Query> = {
 
           return { stream, s3Key, text: c };
         }));
-        streams.push(subStreams);
-      }
-
-      console.log("uploading----");
-      const voiceUrls = [];
-      if (data.splitParagraph) {
-        for (const subStreams of streams) {
+        if (data.splitParagraph) {
           voiceUrls.push(
             await Promise.all(
               subStreams.map(async ({ stream, s3Key, text }) => {
@@ -88,24 +82,21 @@ export const handler: Handlers<Query> = {
               }),
             ),
           );
+        } else {
+          const stream = mergeReadableStreams(
+            ...subStreams.map((s) => s.stream),
+          );
+          const file = `${
+            truncateString(toHex(data.paragraphs + data.language))
+          }.mp3`;
+          const s3Key = `${audioDir}/${file}`;
+          await uploadObject(s3Key, stream);
+          voiceUrls.push({
+            url: await getFileUrl(s3Key),
+            text: data.paragraphs,
+          });
         }
-
-        return Response.json(voiceUrls.flat());
       }
-
-      for (const subStreams of streams) {
-        const stream = mergeReadableStreams(...subStreams.map((s) => s.stream));
-        const file = `${
-          truncateString(toHex(data.paragraphs + data.language))
-        }.mp3`;
-        const s3Key = `${audioDir}/${file}`;
-        await uploadObject(s3Key, stream);
-        voiceUrls.push({
-          url: await getFileUrl(s3Key),
-          text: data.paragraphs,
-        });
-      }
-
       return Response.json(voiceUrls.flat());
     } catch (_error) {
       console.error(_error);

@@ -33,6 +33,36 @@ export function FAQ() {
         </details>
         <details>
           <summary class="py-2 outline-none cursor-pointer focus:underline text-center">
+            What are the uses of this?
+          </summary>
+          <div class="px-4 pb-4 space-y-2">
+            <ul class="list-disc">
+              <li>
+                Provide text-to-speech functionality for individuals with visual
+                impairments or reading difficulties.
+              </li>
+              <li>
+                Develop interactive story applications where the text is
+                narrated based on user choices.
+              </li>
+              <li>
+                Assist users in learning the correct pronunciation of words in
+                different languages.
+              </li>
+              <li>
+                Turn written notes or memos into spoken messages for easy
+                listening.
+              </li>
+              <li>
+                Create instructional videos for training purposes within
+                organizations.
+              </li>
+              ...
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary class="py-2 outline-none cursor-pointer focus:underline text-center">
             Is it free to use?
           </summary>
           <div class="px-4 pb-4 space-y-2">

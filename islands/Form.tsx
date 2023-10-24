@@ -43,9 +43,9 @@ const VoiceCard = (props: Audio & { key?: string | number }) => {
         <div class="w-5" />
         <Button
           class="bg-green-400 hover:bg-green-500 text-white font-semibold"
-          onClick={() => downloadFile(props.url, `${props.key}.mp3`)}
+          onClick={() => downloadFile(props.url)}
         >
-          Download
+          Download {props.key}
         </Button>
       </div>
     </div>
@@ -182,21 +182,6 @@ export default function Form() {
       </form>
       {converting.value ? <Loader /> : (
         <>
-          {audios.value.length > 1
-            ? (
-              <Button
-                class="bg-green-400 hover:bg-green-500 text-white font-semibold mb-2"
-                onClick={() =>
-                  audios.value.map((v, i) =>
-                    downloadFile(v.url, `${i}.mp3`).catch((err) =>
-                      toaster.error(err)
-                    )
-                  )}
-              >
-                Download All
-              </Button>
-            )
-            : null}
           {audios.value.map((v, i) => (
             <VoiceCard key={i} text={v.text} url={v.url} />
           ))}

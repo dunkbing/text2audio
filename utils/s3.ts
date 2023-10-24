@@ -22,5 +22,8 @@ export const uploadObject = (key: string, file: ReadableStream) => {
 };
 
 export const getFileUrl = (key: string) => {
-  return s3Client.getPresignedUrl("GET", key, { bucketName: "text2audio" });
+  return s3Client.getPresignedUrl("GET", key, {
+    bucketName: "text2audio",
+    expirySeconds: 60 * 5,
+  });
 };

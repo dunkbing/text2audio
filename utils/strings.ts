@@ -72,3 +72,7 @@ export function uniqFast(arr: Array<string>) {
   }
   return out;
 }
+
+export function getFileName(url: string) {
+  return url.split("/").pop();
+}

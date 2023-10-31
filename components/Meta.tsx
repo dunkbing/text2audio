@@ -36,6 +36,7 @@ export default function Meta(props: MetaProps) {
       <meta name="twitter:title" content={props.title} />
       <meta name="twitter:description" content={props.description} />
       <meta name="twitter:image" content={props.imageUrl} />
+      <meta name="twitter:creator" content="@dunkbingg" />
     </>
   );
 }

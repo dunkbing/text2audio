@@ -4,5 +4,5 @@ export const voicesEntryKey = ["audios", "total"];
 
 const voicesEntry = await kv.get(voicesEntryKey);
 if (!voicesEntry.value) {
-  await kv.set(voicesEntryKey, 20000);
+  await kv.set(voicesEntryKey, 0);
 }

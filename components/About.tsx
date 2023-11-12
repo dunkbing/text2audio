@@ -4,7 +4,6 @@ export function About() {
       id="about"
       class="flex flex-col items-center justify-center mt-5 px-5"
     >
-      <hr class="w-48 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700" />
       <h1 class="text-black text-2xl font-semibold mb-4">About</h1>
       <div class="max-w-xl text-left text-black">
         <p class="text-lg mb-3 text-center">

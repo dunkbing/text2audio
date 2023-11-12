@@ -1,13 +1,10 @@
 import { PageProps } from "$fresh/server.ts";
 
-import Form from "@/islands/Form.tsx";
 import Head from "@/components/Head.tsx";
-import { TotalVoices } from "@/components/TotalVoices.tsx";
-import { kv, voicesEntryKey } from "@/utils/kv.ts";
+import { About } from "@/components/About.tsx";
+import { FAQ } from "@/components/FAQ.tsx";
 
-const voicesEntry = await kv.get(voicesEntryKey);
-
-export default function Home(ctx: PageProps) {
+export default function (ctx: PageProps) {
   return (
     <div class="flex flex-col justify-center items-center">
       <Head href={ctx.url.href}>
@@ -18,8 +15,8 @@ export default function Home(ctx: PageProps) {
           rel="preload"
         />
       </Head>
-      <Form />
-      <TotalVoices total={voicesEntry.value} />
+      <About />
+      <FAQ />
     </div>
   );
 }

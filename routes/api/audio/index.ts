@@ -29,21 +29,6 @@ async function increaseTotalAudio(num: number) {
   }
 }
 
-async function applyCors(req: Request, headers: Headers) {
-  const origin = req.headers.get("Origin") || "*";
-
-  headers.set("Access-Control-Allow-Origin", origin);
-  headers.set("Access-Control-Allow-Credentials", "true");
-  headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With",
-  );
-  headers.set(
-    "Access-Control-Allow-Methods",
-    "POST, OPTIONS, GET, PUT, DELETE",
-  );
-}
-
 export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
     try {
@@ -71,7 +56,6 @@ export const handler: Handlers<Query> = {
         data.splitParagraph ? 40 : 100,
       );
 
-      console.log("converting----");
       const voiceUrls = [];
       for (const subParagraphs of paragraphs) {
         const subStreams = await Promise.all(subParagraphs.map(async (c) => {
@@ -111,9 +95,7 @@ export const handler: Handlers<Query> = {
           });
         }
       }
-      const resp = Response.json(voiceUrls.flat());
-      applyCors(_req, resp.headers);
-      return resp;
+      return Response.json(voiceUrls.flat());
     } catch (_error) {
       console.error(_error);
       throw createHttpError(Status.InternalServerError, _error.message);

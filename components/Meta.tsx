@@ -13,8 +13,15 @@ export default function Meta(props: MetaProps) {
   return (
     <>
       {/* HTML Meta Tags */}
-      <title>{props.title}</title>
+      <meta
+        name="viewport"
+        content="initial-scale=1.0, width=device-width"
+        key="viewport"
+      />
+      <meta charSet="utf-8" />
       <meta name="description" content={props.description} />
+      <title>{props.title}</title>
+      <link rel="canonical" href={`${props.href}`} />
 
       {/* Google / Search Engine Tags */}
       <meta itemProp="name" content={props.title} />

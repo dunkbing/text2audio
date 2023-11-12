@@ -29,6 +29,21 @@ async function increaseTotalAudio(num: number) {
   }
 }
 
+async function applyCors(req: Request, headers: Headers) {
+  const origin = req.headers.get("Origin") || "*";
+
+  headers.set("Access-Control-Allow-Origin", origin);
+  headers.set("Access-Control-Allow-Credentials", "true");
+  headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With",
+  );
+  headers.set(
+    "Access-Control-Allow-Methods",
+    "POST, OPTIONS, GET, PUT, DELETE",
+  );
+}
+
 export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
     try {
@@ -45,7 +60,6 @@ export const handler: Handlers<Query> = {
       );
       console.log(
         "------",
-        _req.headers.get("user-agent"),
         data.language,
         data.splitParagraph,
         uniqueParagraphs.length,
@@ -97,7 +111,9 @@ export const handler: Handlers<Query> = {
           });
         }
       }
-      return Response.json(voiceUrls.flat());
+      const resp = Response.json(voiceUrls.flat());
+      applyCors(_req, resp.headers);
+      return resp;
     } catch (_error) {
       console.error(_error);
       throw createHttpError(Status.InternalServerError, _error.message);

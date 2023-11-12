@@ -42,7 +42,8 @@ const VoiceCard = (props: Audio) => {
         </Button>
         <div class="w-5" />
         <Button
-          class="bg-green-400 hover:bg-green-500 text-white font-semibold"
+          class="text-white font-semibold"
+          colorMode="secondary"
           onClick={() => downloadFile(props.url)}
         >
           Download
@@ -185,7 +186,8 @@ export default function Form() {
           {audios.value.length > 1
             ? (
               <Button
-                class="bg-green-400 hover:bg-green-500 text-white font-semibold mb-2"
+                class="text-white font-semibold mb-2"
+                colorMode="secondary"
                 onClick={() =>
                   audios.value.map((v, i) =>
                     downloadFile(v.url).catch((err) => toaster.error(err))

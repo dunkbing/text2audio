@@ -9,7 +9,9 @@ export function About() {
         <p class="text-lg mb-3 text-center">
           Text2Audio generates MP3 audio files from text and offers the option
           to either download them or play them directly in your web browser. It
-          utilizes Google's text-to-speech API for this purpose.
+          utilizes Google's text-to-speech API for this purpose. Just enter or
+          paste the text you want to listen to, and it will read it aloud for
+          you.
         </p>
         <p class="text-lg text-center">
           Initially, Text2Audio was developed as a personal tool to generate

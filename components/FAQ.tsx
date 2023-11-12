@@ -67,7 +67,8 @@ export function FAQ() {
           </summary>
           <div class="px-4 pb-4 space-y-2">
             <p class="text-center">
-              Yes, forever
+              Certainly, the application is completely free, with no charges,
+              plans, or quotas.
             </p>
           </div>
         </details>

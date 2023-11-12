@@ -14,9 +14,6 @@ export default function API(props: { baseUrl: string }) {
         <p class="mb-4">
           Welcome to the Text2Audio API! Follow the instructions below to
           convert text to audio using our API.
-          <span class="text-yellow-800 rounded-lg font-bold">
-            {" "}It works only on the server side 😄
-          </span>
         </p>
 
         <h2 class="text-xl font-semibold mb-2">1. Make a Request</h2>

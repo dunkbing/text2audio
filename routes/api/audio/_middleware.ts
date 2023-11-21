@@ -15,7 +15,6 @@ export async function handler(req: Request, ctx: MiddlewareHandlerContext) {
     "Access-Control-Allow-Methods",
     "OPTIONS, POST",
   );
-  console.log(headers);
 
   return resp;
 }

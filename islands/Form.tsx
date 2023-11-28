@@ -123,7 +123,7 @@ export default function Form() {
             ref={textAreaRef}
             class="w-full px-3 py-2 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-500 text-black shadow-xl"
             rows={10}
-            placeholder="Enter your text here"
+            placeholder="Enter your text here..."
             required
           />
         </div>

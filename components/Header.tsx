@@ -12,7 +12,7 @@ export interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const NAV_ITEM = "text-gray-800 px-3 py-4 sm:py-2";
+  const NAV_ITEM = "text-green-900 px-3 py-4 sm:py-2";
 
   return (
     <header
@@ -60,7 +60,7 @@ export default function Header(props: HeaderProps) {
           `}
       </script>
       <nav
-        class={"hidden flex-col gap-x-4 divide-y divide-solid sm:(flex items-center flex-row divide-y-0)"}
+        class={"hidden font-semibold flex-col gap-x-4 divide-y divide-solid sm:(flex items-center flex-row divide-y-0)"}
       >
         <a
           href="/api"

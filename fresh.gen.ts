@@ -2,45 +2,46 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $0 from "./routes/_404.tsx";
-import * as $1 from "./routes/_app.tsx";
-import * as $2 from "./routes/about.tsx";
-import * as $3 from "./routes/api.tsx";
-import * as $4 from "./routes/api/audio/_middleware.ts";
-import * as $5 from "./routes/api/audio/index.ts";
-import * as $6 from "./routes/api/feedback.ts";
-import * as $7 from "./routes/api/joke.ts";
-import * as $8 from "./routes/feedback.tsx";
-import * as $9 from "./routes/greet/[name].tsx";
-import * as $10 from "./routes/index.tsx";
-import * as $$0 from "./islands/API.tsx";
-import * as $$1 from "./islands/Code.tsx";
-import * as $$2 from "./islands/Counter.tsx";
-import * as $$3 from "./islands/FeedbackForm.tsx";
-import * as $$4 from "./islands/Form.tsx";
+import * as $_404 from "./routes/_404.tsx";
+import * as $_app from "./routes/_app.tsx";
+import * as $about from "./routes/about.tsx";
+import * as $api from "./routes/api.tsx";
+import * as $api_audio_middleware from "./routes/api/audio/_middleware.ts";
+import * as $api_audio_index from "./routes/api/audio/index.ts";
+import * as $api_feedback from "./routes/api/feedback.ts";
+import * as $api_joke from "./routes/api/joke.ts";
+import * as $feedback from "./routes/feedback.tsx";
+import * as $greet_name_ from "./routes/greet/[name].tsx";
+import * as $index from "./routes/index.tsx";
+import * as $API from "./islands/API.tsx";
+import * as $Code from "./islands/Code.tsx";
+import * as $Counter from "./islands/Counter.tsx";
+import * as $FeedbackForm from "./islands/FeedbackForm.tsx";
+import * as $Form from "./islands/Form.tsx";
+import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/_404.tsx": $0,
-    "./routes/_app.tsx": $1,
-    "./routes/about.tsx": $2,
-    "./routes/api.tsx": $3,
-    "./routes/api/audio/_middleware.ts": $4,
-    "./routes/api/audio/index.ts": $5,
-    "./routes/api/feedback.ts": $6,
-    "./routes/api/joke.ts": $7,
-    "./routes/feedback.tsx": $8,
-    "./routes/greet/[name].tsx": $9,
-    "./routes/index.tsx": $10,
+    "./routes/_404.tsx": $_404,
+    "./routes/_app.tsx": $_app,
+    "./routes/about.tsx": $about,
+    "./routes/api.tsx": $api,
+    "./routes/api/audio/_middleware.ts": $api_audio_middleware,
+    "./routes/api/audio/index.ts": $api_audio_index,
+    "./routes/api/feedback.ts": $api_feedback,
+    "./routes/api/joke.ts": $api_joke,
+    "./routes/feedback.tsx": $feedback,
+    "./routes/greet/[name].tsx": $greet_name_,
+    "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/API.tsx": $$0,
-    "./islands/Code.tsx": $$1,
-    "./islands/Counter.tsx": $$2,
-    "./islands/FeedbackForm.tsx": $$3,
-    "./islands/Form.tsx": $$4,
+    "./islands/API.tsx": $API,
+    "./islands/Code.tsx": $Code,
+    "./islands/Counter.tsx": $Counter,
+    "./islands/FeedbackForm.tsx": $FeedbackForm,
+    "./islands/Form.tsx": $Form,
   },
   baseUrl: import.meta.url,
-};
+} satisfies Manifest;
 
 export default manifest;

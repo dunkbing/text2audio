@@ -1,5 +1,6 @@
-import { Handlers, Status } from "$fresh/server.ts";
+import { Handlers } from "$fresh/server.ts";
 import { createHttpError } from "$std/http/http_errors.ts";
+import { Status } from "$std/http/http_status.ts";
 import { mergeReadableStreams } from "$std/streams/mod.ts";
 
 import {

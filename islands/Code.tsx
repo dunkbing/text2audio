@@ -1,6 +1,6 @@
 export default function Code(props: { code: string }) {
   return (
-    <div className="relative max-w-2xl mx-auto">
+    <div className="relative max-w-2xl mx-auto my-2">
       <div className="bg-gray-200 text-white p-4 rounded-md">
         <div className="flex justify-between items-center mb-2">
           <span className="text-gray-500">Code:</span>

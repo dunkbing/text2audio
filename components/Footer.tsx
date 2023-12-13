@@ -55,7 +55,7 @@ export interface FooterProps {
 export default function Footer(props: FooterProps) {
   return (
     <footer
-      class={`${SITE_BAR_STYLES} flex flex-col items-center text-center`}
+      class={`${SITE_BAR_STYLES} flex flex-col items-center text-center mt-10`}
     >
       <a class="mb-3" target="_blank" href="https://fresh.deno.dev">
         <MadeWithFreshBadge />

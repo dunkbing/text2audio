@@ -54,6 +54,7 @@ const VoiceCard = (props: Audio) => {
 };
 
 const splitParagraph = signal(false);
+const speed = signal("0.6");
 const audios = signal<Audio[]>([]);
 const converting = signal(false);
 
@@ -85,6 +86,7 @@ export default function Form() {
                 paragraphs: splitText(text),
                 language,
                 splitParagraph: splitParagraph.value,
+                speed: speed.value,
               }),
             });
             if (res.ok) {
@@ -150,6 +152,24 @@ export default function Form() {
               </option>
             ))}
           </select>
+        </div>
+        <div class="mb-6">
+          <label
+            for="speed"
+            class="block text-gray-700 font-bold mb-1.5 text-xl text-center"
+          >
+            Read Speed ({speed.value})
+          </label>
+          <input
+            id="speed"
+            name="speed"
+            type="range"
+            min="0.1"
+            max="1"
+            step="0.1"
+            defaultValue="1"
+            onChange={(e) => speed.value = e.currentTarget.value}
+          />
         </div>
         <div class="flex items-center mb-6">
           <input

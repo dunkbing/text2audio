@@ -15,8 +15,7 @@ export const ACTIVE_LINK_STYLES = LINK_STYLES + " !text-black !dark:text-white";
 export const HEADING_STYLES = "text-3xl font-bold";
 export const HEADING_WITH_MARGIN_STYLES = HEADING_STYLES + " mb-8";
 
-export const TRANSLATE_BASE_URL =
-  "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob";
+export const TRANSLATE_BASE_URL = "https://translate.google.com/translate_tts";
 
 export const languages2 = {
   "af-ZA": "Afrikaans",

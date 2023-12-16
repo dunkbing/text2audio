@@ -37,6 +37,7 @@ export const handler: Handlers<Query> = {
       const data = body as {
         paragraphs: string | string[];
         language: string;
+        speed: string;
         splitParagraph: boolean;
       };
       const uniqueParagraphs = uniqFast(
@@ -60,8 +61,15 @@ export const handler: Handlers<Query> = {
       const voiceUrls = [];
       for (const subParagraphs of paragraphs) {
         const subStreams = await Promise.all(subParagraphs.map(async (c) => {
+          const params = new URLSearchParams({
+            ie: "UTF-8",
+            client: "tw-ob",
+            tl: data.language,
+            q: c,
+            ttsspeed: data.speed ? data.speed : "1",
+          });
           const url = encodeURI(
-            `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,
+            `${TRANSLATE_BASE_URL}?${params.toString()}`,
           );
           const file = `${truncateString(toHex(c + data.language))}.mp3`;
           const s3Key = `${audioDir}/${file}`;

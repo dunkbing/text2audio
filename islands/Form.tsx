@@ -10,7 +10,7 @@ import { downloadFile } from "@/utils/http.ts";
 import { splitText } from "@/utils/strings.ts";
 import { languages2 } from "@/utils/constants.ts";
 
-type Audio = { url: string; text: string };
+type Audio = { url: string; text: string; index: number };
 
 const AudioCard = (props: Audio) => {
   const audio = useMemo(() => new Audio(props.url), [props.url]);
@@ -22,7 +22,7 @@ const AudioCard = (props: Audio) => {
     <div class="w-2/3 mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-2">
       <div class="p-4">
         <p class="text-gray-700 text-center">
-          {props.text}
+          {props.index}. {props.text}
         </p>
       </div>
       <div class="px-4 pb-4 flex justify-center">
@@ -44,7 +44,7 @@ const AudioCard = (props: Audio) => {
         <Button
           class="text-white font-semibold"
           colorMode="secondary"
-          onClick={() => downloadFile(props.url)}
+          onClick={() => downloadFile(props.url, String(props.index))}
         >
           Download
         </Button>
@@ -210,7 +210,9 @@ export default function Form() {
                 colorMode="secondary"
                 onClick={() =>
                   audios.value.map((v, i) =>
-                    downloadFile(v.url).catch((err) => toaster.error(err))
+                    downloadFile(v.url, String(i + 1)).catch((err) =>
+                      toaster.error(err)
+                    )
                   )}
               >
                 Download All
@@ -218,7 +220,7 @@ export default function Form() {
             )
             : null}
           {audios.value.map((v, i) => (
-            <AudioCard key={i} text={v.text} url={v.url} />
+            <AudioCard key={i} text={v.text} url={v.url} index={i + 1} />
           ))}
         </>
       )}

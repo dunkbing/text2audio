@@ -65,11 +65,10 @@ export const handler: Handlers<Query> = {
             ie: "UTF-8",
             client: "tw-ob",
             tl: data.language,
-            q: c,
             ttsspeed: data.speed ? data.speed : "1",
           });
           const url = encodeURI(
-            `${TRANSLATE_BASE_URL}?${params.toString()}`,
+            `${TRANSLATE_BASE_URL}?${params.toString()}&q=${c}`,
           );
           const file = `${truncateString(toHex(c + data.language))}.mp3`;
           const s3Key = `${audioDir}/${file}`;

@@ -12,7 +12,7 @@ import { languages2 } from "@/utils/constants.ts";
 
 type Audio = { url: string; text: string };
 
-const VoiceCard = (props: Audio) => {
+const AudioCard = (props: Audio) => {
   const audio = useMemo(() => new Audio(props.url), [props.url]);
   const [playing, setPlaying] = useState(false);
 
@@ -218,7 +218,7 @@ export default function Form() {
             )
             : null}
           {audios.value.map((v, i) => (
-            <VoiceCard key={i} text={v.text} url={v.url} />
+            <AudioCard key={i} text={v.text} url={v.url} />
           ))}
         </>
       )}

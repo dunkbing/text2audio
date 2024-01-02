@@ -3,6 +3,7 @@ export default function ProductHuntBadge() {
     <a
       href="https://www.producthunt.com/posts/text2audio?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-text2audio"
       target="_blank"
+      class="mb-3"
     >
       <img
         src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=430591&theme=light"

@@ -23,7 +23,7 @@ export default function Home(ctx: PageProps) {
       <ProductHuntBadge />
       <Form />
       <TotalVoices total={voicesEntry.value} />
-      <Promote />
+      {/* <Promote /> */}
     </div>
   );
 }

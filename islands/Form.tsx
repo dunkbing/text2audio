@@ -66,7 +66,7 @@ export default function Form() {
   return (
     <>
       <form
-        class="flex flex-col mb-4 mx-auto px-8 w-full items-center"
+        class="flex flex-col my-4 mx-auto px-8 w-full items-center"
         method="POST"
         onSubmit={async (e) => {
           e.preventDefault();

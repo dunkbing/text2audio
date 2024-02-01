@@ -1,8 +1,5 @@
 import { signal } from "@preact/signals";
 import { useMemo, useRef, useState } from "preact/hooks";
-import ToastContext from "fresh_toaster/contexts/toastContext.tsx";
-import Toaster from "fresh_toaster/components/toaster.tsx";
-import { useToaster } from "fresh_toaster/hooks/index.tsx";
 
 import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
@@ -58,8 +55,20 @@ const speed = signal("0.6");
 const audios = signal<Audio[]>([]);
 const converting = signal(false);
 
+const showSnackbar = (text: string, err = false) => {
+  const x = document.getElementById("snackbar");
+  if (!x) return;
+  x.innerHTML = text;
+  x.className = "show";
+  if (err) {
+    x.className = "show red";
+  }
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 3000);
+};
+
 export default function Form() {
-  const [toasts, toaster] = useToaster();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -96,12 +105,12 @@ export default function Form() {
                   v.text && v.url
                 );
               }
-              toaster.success("Success");
+              showSnackbar("Success");
             } else {
-              toaster.error("Error!!");
+              showSnackbar("Error");
             }
           } catch (error) {
-            toaster.error(error.message);
+            showSnackbar(error.message);
           } finally {
             converting.value = false;
           }
@@ -197,9 +206,6 @@ export default function Form() {
         <h1 class="text-gray-700 font-bold">
           {audios.value.length ? "Audio" : "No audio"}
         </h1>
-        <ToastContext.Provider value={toasts.value}>
-          <Toaster position="top-right" />
-        </ToastContext.Provider>
       </form>
       {converting.value ? <Loader /> : (
         <>
@@ -211,7 +217,7 @@ export default function Form() {
                 onClick={() =>
                   audios.value.map((v, i) =>
                     downloadFile(v.url, String(i + 1)).catch((err) =>
-                      toaster.error(err)
+                      showSnackbar(err)
                     )
                   )}
               >
@@ -224,6 +230,7 @@ export default function Form() {
           ))}
         </>
       )}
+      <div id="snackbar" />
     </>
   );
 }

@@ -65,7 +65,7 @@ const showSnackbar = (text: string, err = false) => {
   }
   setTimeout(function () {
     x.className = x.className.replace("show", "");
-  }, 3000);
+  }, 2000);
 };
 
 export default function Form() {
@@ -138,7 +138,7 @@ export default function Form() {
             required
           />
         </div>
-        <div class="mb-6">
+        <div class="mb-4">
           <label
             for="language"
             class="block text-gray-700 font-bold mb-2 text-xl text-center"
@@ -162,10 +162,10 @@ export default function Form() {
             ))}
           </select>
         </div>
-        <div class="mb-6">
+        <div class="mb-4 flex flex-row items-center space-x-2">
           <label
             for="speed"
-            class="block text-gray-700 font-bold mb-1.5 text-xl text-center"
+            class="block text-gray-700 font-bold text-xl text-center"
           >
             Read Speed ({speed.value})
           </label>
@@ -180,7 +180,7 @@ export default function Form() {
             onChange={(e) => speed.value = e.currentTarget.value}
           />
         </div>
-        <div class="flex items-center mb-6">
+        <div class="flex items-center mb-4">
           <input
             checked={splitParagraph.value}
             id="green-checkbox"

@@ -98,7 +98,7 @@ export default function Footer(props: FooterProps) {
         }
       </nav>
       <span class="text-center mt-1">
-        text2audio.cc © 2023 Text2Audio. All rights reserved.
+        text2audio.cc © 2024 Text2Audio. All rights reserved.
       </span>
       <div className="px-8 mx-auto">
         Built by{" "}

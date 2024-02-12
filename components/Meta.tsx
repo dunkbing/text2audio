@@ -20,6 +20,10 @@ export default function Meta(props: MetaProps) {
       />
       <meta charSet="utf-8" />
       <meta name="description" content={props.description} />
+      <meta
+        name="keywords"
+        content="tts, free tss, text to speech, text to speech free tts api, text to speech api, tts app, text to speech app"
+      />
       <title>{props.title}</title>
       <link rel="canonical" href={`${props.href}`} />
 

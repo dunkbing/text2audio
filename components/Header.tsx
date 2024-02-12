@@ -1,6 +1,3 @@
-import IconX from "tabler_icons_tsx/x.tsx";
-import IconMenu from "tabler_icons_tsx/menu-2.tsx";
-import { cx } from "@twind/core";
 import { SITE_BAR_STYLES, SITE_NAME } from "@/utils/constants.ts";
 
 export interface HeaderProps {
@@ -12,21 +9,12 @@ export interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const NAV_ITEM = "text-gray-800 px-3 py-4 sm:py-2";
+  const NAV_ITEM = "text-green-900 px-3 py-4 sm:py-2";
 
   return (
     <header
-      class={cx(
-        SITE_BAR_STYLES,
-        "flex-col sm:flex-row",
-      )}
+      class={`${SITE_BAR_STYLES} flex-col sm:flex-row`}
     >
-      <input
-        type="checkbox"
-        id="nav-toggle"
-        class="hidden [:checked&+*>:last-child>*>:first-child]:hidden [:checked&+*>:last-child>*>:last-child]:block checked:siblings:last-child:flex"
-      />
-
       <div class="flex justify-between items-center">
         <a href="/" class="shrink-0">
           <img
@@ -36,31 +24,9 @@ export default function Header(props: HeaderProps) {
             height={100}
           />
         </a>
-        <div class="flex gap-4 items-center">
-          <label
-            tabIndex={0}
-            class="sm:hidden"
-            id="nav-toggle-label"
-            htmlFor="nav-toggle"
-          >
-            <IconMenu class="w-6 h-6" />
-            <IconX class="hidden w-6 h-6" />
-          </label>
-        </div>
       </div>
-      <script>
-        {`
-            const navToggleLabel = document.getElementById('nav-toggle-label');
-            navToggleLabel.addEventListener('keydown', () => {
-              if (event.code === 'Space' || event.code === 'Enter') {
-                navToggleLabel.click();
-                event.preventDefault();
-              }
-            });
-          `}
-      </script>
       <nav
-        class={"hidden flex-col gap-x-4 divide-y divide-solid sm:(flex items-center flex-row divide-y-0)"}
+        class={"font-semibold flex flex-col gap-x-4 divide-y divide-solid sm:flex sm:items-center sm:flex-row sm:divide-y-0"}
       >
         <a
           href="/api"

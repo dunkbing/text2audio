@@ -1,7 +1,7 @@
 import { getFileName } from "@/utils/strings.ts";
 
-export async function downloadFile(url: string) {
-  const filename = getFileName(url);
+export async function downloadFile(url: string, name?: string) {
+  const filename = name || getFileName(url);
   const response = await fetch(url);
   const blob = await response.blob();
   const a = document.createElement("a");

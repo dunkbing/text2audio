@@ -2,6 +2,7 @@ import { LINK_STYLES, NAV_STYLES, SITE_BAR_STYLES } from "@/utils/constants.ts";
 import IconBrandGithub from "tabler_icons_tsx/brand-github.tsx";
 import IconBrandTwitter from "tabler_icons_tsx/brand-twitter.tsx";
 import IconBrandTiktok from "tabler_icons_tsx/brand-tiktok.tsx";
+import IconBrandFacebook from "tabler_icons_tsx/brand-facebook.tsx";
 
 function MadeWithFreshBadge() {
   return (
@@ -55,12 +56,20 @@ export interface FooterProps {
 export default function Footer(props: FooterProps) {
   return (
     <footer
-      class={`${SITE_BAR_STYLES} flex flex-col items-center text-center`}
+      class={`${SITE_BAR_STYLES} flex flex-col items-center text-center space-y-2`}
     >
       <a class="mb-3" target="_blank" href="https://fresh.deno.dev">
         <MadeWithFreshBadge />
       </a>
       <nav class={NAV_STYLES}>
+        <a
+          href="https://www.facebook.com/bingdevtrai"
+          target="_blank"
+          aria-label="Text2Audio developer on Facebook"
+          class={LINK_STYLES}
+        >
+          <IconBrandFacebook class="h-12 w-12" />
+        </a>
         <a
           href="https://github.com/dunkbing"
           target="_blank"
@@ -89,7 +98,7 @@ export default function Footer(props: FooterProps) {
         }
       </nav>
       <span class="text-center mt-1">
-        text2audio.cc © 2023 Text2Audio. All rights reserved.
+        text2audio.cc © 2024 Text2Audio. All rights reserved.
       </span>
       <div className="px-8 mx-auto">
         Built by{" "}

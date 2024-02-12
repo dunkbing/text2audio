@@ -1,8 +1,5 @@
 import { signal } from "@preact/signals";
 import { useMemo, useRef, useState } from "preact/hooks";
-import ToastContext from "fresh_toaster/contexts/toastContext.tsx";
-import Toaster from "fresh_toaster/components/toaster.tsx";
-import { useToaster } from "fresh_toaster/hooks/index.tsx";
 
 import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
@@ -10,9 +7,9 @@ import { downloadFile } from "@/utils/http.ts";
 import { splitText } from "@/utils/strings.ts";
 import { languages2 } from "@/utils/constants.ts";
 
-type Audio = { url: string; text: string };
+type Audio = { url: string; text: string; index: number };
 
-const VoiceCard = (props: Audio) => {
+const AudioCard = (props: Audio) => {
   const audio = useMemo(() => new Audio(props.url), [props.url]);
   const [playing, setPlaying] = useState(false);
 
@@ -22,7 +19,7 @@ const VoiceCard = (props: Audio) => {
     <div class="w-2/3 mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-2">
       <div class="p-4">
         <p class="text-gray-700 text-center">
-          {props.text}
+          {props.index}. {props.text}
         </p>
       </div>
       <div class="px-4 pb-4 flex justify-center">
@@ -44,7 +41,7 @@ const VoiceCard = (props: Audio) => {
         <Button
           class="text-white font-semibold"
           colorMode="secondary"
-          onClick={() => downloadFile(props.url)}
+          onClick={() => downloadFile(props.url, String(props.index))}
         >
           Download
         </Button>
@@ -54,18 +51,31 @@ const VoiceCard = (props: Audio) => {
 };
 
 const splitParagraph = signal(false);
+const speed = signal("0.6");
 const audios = signal<Audio[]>([]);
 const converting = signal(false);
 
+const showSnackbar = (text: string, err = false) => {
+  const x = document.getElementById("snackbar");
+  if (!x) return;
+  x.innerHTML = text;
+  x.className = "show";
+  if (err) {
+    x.className = "show red";
+  }
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 2000);
+};
+
 export default function Form() {
-  const [toasts, toaster] = useToaster();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
 
   return (
     <>
       <form
-        class="flex flex-col mb-4 mx-auto px-8 w-full items-center"
+        class="flex flex-col my-4 mx-auto px-8 w-full items-center"
         method="POST"
         onSubmit={async (e) => {
           e.preventDefault();
@@ -85,6 +95,7 @@ export default function Form() {
                 paragraphs: splitText(text),
                 language,
                 splitParagraph: splitParagraph.value,
+                speed: speed.value,
               }),
             });
             if (res.ok) {
@@ -94,12 +105,12 @@ export default function Form() {
                   v.text && v.url
                 );
               }
-              toaster.success("Success");
+              showSnackbar("Success");
             } else {
-              toaster.error("Error!!");
+              showSnackbar("Error");
             }
           } catch (error) {
-            toaster.error(error.message);
+            showSnackbar(error.message);
           } finally {
             converting.value = false;
           }
@@ -127,7 +138,7 @@ export default function Form() {
             required
           />
         </div>
-        <div class="mb-6">
+        <div class="mb-4">
           <label
             for="language"
             class="block text-gray-700 font-bold mb-2 text-xl text-center"
@@ -151,7 +162,25 @@ export default function Form() {
             ))}
           </select>
         </div>
-        <div class="flex items-center mb-6">
+        <div class="mb-4 flex flex-row items-center space-x-2">
+          <label
+            for="speed"
+            class="block text-gray-700 font-bold text-xl text-center"
+          >
+            Read Speed ({speed.value})
+          </label>
+          <input
+            id="speed"
+            name="speed"
+            type="range"
+            min="0.1"
+            max="1"
+            step="0.1"
+            defaultValue="1"
+            onChange={(e) => speed.value = e.currentTarget.value}
+          />
+        </div>
+        <div class="flex items-center mb-4">
           <input
             checked={splitParagraph.value}
             id="green-checkbox"
@@ -177,9 +206,6 @@ export default function Form() {
         <h1 class="text-gray-700 font-bold">
           {audios.value.length ? "Audio" : "No audio"}
         </h1>
-        <ToastContext.Provider value={toasts.value}>
-          <Toaster position="top-right" />
-        </ToastContext.Provider>
       </form>
       {converting.value ? <Loader /> : (
         <>
@@ -190,7 +216,9 @@ export default function Form() {
                 colorMode="secondary"
                 onClick={() =>
                   audios.value.map((v, i) =>
-                    downloadFile(v.url).catch((err) => toaster.error(err))
+                    downloadFile(v.url, String(i + 1)).catch((err) =>
+                      showSnackbar(err)
+                    )
                   )}
               >
                 Download All
@@ -198,10 +226,11 @@ export default function Form() {
             )
             : null}
           {audios.value.map((v, i) => (
-            <VoiceCard key={i} text={v.text} url={v.url} />
+            <AudioCard key={i} text={v.text} url={v.url} index={i + 1} />
           ))}
         </>
       )}
+      <div id="snackbar" />
     </>
   );
 }

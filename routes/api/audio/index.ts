@@ -1,5 +1,6 @@
-import { Handlers, Status } from "$fresh/server.ts";
+import { Handlers } from "$fresh/server.ts";
 import { createHttpError } from "$std/http/http_errors.ts";
+import { Status } from "$std/http/http_status.ts";
 import { mergeReadableStreams } from "$std/streams/mod.ts";
 
 import {
@@ -36,6 +37,7 @@ export const handler: Handlers<Query> = {
       const data = body as {
         paragraphs: string | string[];
         language: string;
+        speed: string;
         splitParagraph: boolean;
       };
       const uniqueParagraphs = uniqFast(
@@ -59,8 +61,14 @@ export const handler: Handlers<Query> = {
       const voiceUrls = [];
       for (const subParagraphs of paragraphs) {
         const subStreams = await Promise.all(subParagraphs.map(async (c) => {
+          const params = new URLSearchParams({
+            ie: "UTF-8",
+            client: "tw-ob",
+            tl: data.language,
+            ttsspeed: data.speed ? data.speed : "1",
+          });
           const url = encodeURI(
-            `${TRANSLATE_BASE_URL}&tl=${data.language}&q=${c}`,
+            `${TRANSLATE_BASE_URL}?${params.toString()}&q=${c}`,
           );
           const file = `${truncateString(toHex(c + data.language))}.mp3`;
           const s3Key = `${audioDir}/${file}`;

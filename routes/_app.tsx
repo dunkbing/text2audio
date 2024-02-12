@@ -1,12 +1,12 @@
-import { AppProps } from "$fresh/server.ts";
+import { PageProps } from "$fresh/server.ts";
 
 import Header from "@/components/Header.tsx";
 import Footer from "@/components/Footer.tsx";
 
-export default function App({ Component, url }: AppProps) {
+export default function App({ Component, url }: PageProps) {
   return (
-    <div class="bg-gray-100 flex flex-col items-center">
-      <div class="flex flex-col h-min-screen mx-auto sm:w-full md:w-2/3 lg:w-1/2">
+    <div class="bg-gray-100 flex flex-col items-center min-h-screen">
+      <div class="flex flex-col mx-auto sm:w-full md:w-2/3 lg:w-1/2">
         <Header
           url={url}
         />

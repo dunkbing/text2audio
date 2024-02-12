@@ -1,7 +1,7 @@
 export const SITE_NAME =
   "Text2Audio - Convert Text to Speech Online - Free TTS Tool";
 export const SITE_DESCRIPTION =
-  "Easily convert text into natural-sounding audio with Text2Audio's free online TTS tool. Effortlessly create clear and lifelike speech for any purpose.";
+  "Easily convert text into natural-sounding audio with Text2Audio's free online text-to-speech(TTS) tool. Effortlessly create clear and lifelike speech for any purpose.";
 
 export const BUTTON_STYLES =
   "px-4 py-2 bg-primary text-white rounded-lg border-1 border-primary transition duration-100 disabled:(opacity-50 cursor-not-allowed) hover:(bg-transparent text-primary)";

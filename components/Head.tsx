@@ -19,8 +19,7 @@ export default function Head(props: HeadProps) {
         href={props.href}
         imageUrl="/cover.png"
       />
-      {
-        /* <script
+      <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-ZJF7E4QKYV"
       />
@@ -32,8 +31,7 @@ export default function Head(props: HeadProps) {
 
     gtag('config', 'G-ZJF7E4QKYV');
 `}
-      </script> */
-      }
+      </script>
       {props.children}
     </_Head>
   );

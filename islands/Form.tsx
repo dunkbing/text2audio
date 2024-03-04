@@ -1,6 +1,7 @@
 import { JSX } from "preact";
-import { signal } from "@preact/signals";
 import { useMemo, useRef, useState } from "preact/hooks";
+import { signal } from "@preact/signals";
+import SrtParser2 from "srt-parser-2";
 
 import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
@@ -72,14 +73,54 @@ const showSnackbar = (text: string, err = false) => {
 export default function Form() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [file, setFile] = useState<File | null>();
+
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDrop: JSX.DragEventHandler<HTMLTextAreaElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const file_ = e.dataTransfer?.files[0];
+    setFile(file_);
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      if (textAreaRef.current) {
+        textAreaRef.current.value = e.target?.result as string;
+      }
+    };
+
+    reader.readAsText(file_ as Blob);
+  };
+
+  const handleDragOver: JSX.DragEventHandler<HTMLTextAreaElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave: JSX.DragEventHandler<HTMLTextAreaElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
 
   const submit: JSX.GenericEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const text = textAreaRef.current?.value.trim();
+    let text = textAreaRef.current?.value.trim();
     if (!text) return;
-    const language = selectRef.current?.value;
 
+    const language = selectRef.current?.value;
     converting.value = true;
+
+    if (file?.name?.endsWith(".srt")) {
+      const parser = new SrtParser2();
+      const srtArray = parser.fromSrt(text);
+      text = srtArray.map(({ text }) => text).join("\n");
+    }
+
     try {
       const res = await fetch("/api/audio", {
         method: "POST",
@@ -110,6 +151,13 @@ export default function Form() {
     }
   };
 
+  const textAreaClass =
+    `w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black shadow-xl ${
+      isDragging
+        ? "border-dashed border-blue-500 bg-blue-100"
+        : "border-gray-500"
+    }`;
+
   return (
     <>
       <form
@@ -133,10 +181,13 @@ export default function Form() {
             id="text"
             name="text"
             ref={textAreaRef}
-            class="w-full px-3 py-2 border border-gray-500 rounded-lg focus:outline-none focus:border-blue-500 text-black shadow-xl"
+            className={textAreaClass}
             rows={10}
-            placeholder="Enter your text here..."
+            placeholder="Enter your text, or drop a text file here to see its content..."
             required
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
           />
         </div>
         <div class="mb-4">

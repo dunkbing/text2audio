@@ -21,6 +21,7 @@
     "tailwindcss": "npm:tailwindcss@3.3.5",
     "tailwindcss/": "npm:/tailwindcss@3.3.5/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.3.5/plugin.js",
+    "srt-parser-2": "npm:srt-parser-2@1.2.3",
     "$std/": "https://deno.land/std@0.193.0/"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },

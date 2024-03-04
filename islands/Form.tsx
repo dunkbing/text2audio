@@ -1,3 +1,4 @@
+import { JSX } from "preact";
 import { signal } from "@preact/signals";
 import { useMemo, useRef, useState } from "preact/hooks";
 
@@ -72,49 +73,49 @@ export default function Form() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
 
+  const submit: JSX.GenericEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const text = textAreaRef.current?.value.trim();
+    if (!text) return;
+    const language = selectRef.current?.value;
+
+    converting.value = true;
+    try {
+      const res = await fetch("/api/audio", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paragraphs: splitText(text),
+          language,
+          splitParagraph: splitParagraph.value,
+          speed: speed.value,
+        }),
+      });
+      if (res.ok) {
+        const voicesTmp = await res.json();
+        if (Array.isArray(voicesTmp)) {
+          audios.value = (voicesTmp as Audio[]).filter((v) => v.text && v.url);
+        }
+        showSnackbar("Success");
+      } else {
+        showSnackbar("Error");
+      }
+    } catch (error) {
+      showSnackbar(error.message);
+    } finally {
+      converting.value = false;
+    }
+  };
+
   return (
     <>
       <form
         class="flex flex-col my-4 mx-auto px-8 w-full items-center"
         method="POST"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const text = textAreaRef.current?.value.trim();
-          if (!text) return;
-          const language = selectRef.current?.value;
-
-          converting.value = true;
-          try {
-            const res = await fetch("/api/audio", {
-              method: "POST",
-              headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                paragraphs: splitText(text),
-                language,
-                splitParagraph: splitParagraph.value,
-                speed: speed.value,
-              }),
-            });
-            if (res.ok) {
-              const voicesTmp = await res.json();
-              if (Array.isArray(voicesTmp)) {
-                audios.value = (voicesTmp as Audio[]).filter((v) =>
-                  v.text && v.url
-                );
-              }
-              showSnackbar("Success");
-            } else {
-              showSnackbar("Error");
-            }
-          } catch (error) {
-            showSnackbar(error.message);
-          } finally {
-            converting.value = false;
-          }
-        }}
+        onSubmit={submit}
       >
         <span class="text-green-700 text-sm text-center">
           This tool divides long text into smaller, readable sections while

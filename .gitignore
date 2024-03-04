@@ -10,3 +10,4 @@ _fresh/
 audios
 
 node_modules
+.DS_Store

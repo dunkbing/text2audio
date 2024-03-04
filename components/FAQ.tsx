@@ -24,10 +24,10 @@ export function FAQ() {
           </summary>
           <div class="px-4 pb-4">
             <p class="text-center">
-              To convert text into audio files using Text2Audio, you need to
-              enter the text first, then select the language (you can choose to
-              split the text into smaller paragraphs), and finally perform the
-              conversion.
+              To convert text into audio (mp3 files) using Text2Audio, you need
+              to enter the text first (or drag your text file into the text
+              box), then select the language (you can choose to split the text
+              into smaller paragraphs), and finally perform the conversion.
             </p>
           </div>
         </details>
@@ -38,8 +38,8 @@ export function FAQ() {
           <div class="px-4 pb-4 space-y-2">
             <ul class="list-disc">
               <li>
-                Provide text-to-speech functionality for individuals with visual
-                impairments or reading difficulties.
+                Provide tts (text-to-speech) functionality for individuals with
+                visual impairments or reading difficulties.
               </li>
               <li>
                 Develop interactive story applications where the text is

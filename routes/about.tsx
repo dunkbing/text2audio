@@ -7,7 +7,7 @@ import { FAQ } from "@/components/FAQ.tsx";
 export default function (ctx: PageProps) {
   return (
     <div class="flex flex-col justify-center items-center">
-      <Head href={ctx.url.href}>
+      <Head href={ctx.url.href} title="About">
         <link
           as="fetch"
           crossOrigin="anonymous"

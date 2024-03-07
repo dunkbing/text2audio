@@ -6,7 +6,7 @@ import API from "@/islands/API.tsx";
 export default function Home(ctx: PageProps) {
   return (
     <div class="flex flex-col justify-center items-center">
-      <Head href={ctx.url.href}>
+      <Head href={ctx.url.href} title="API">
         <link
           as="fetch"
           crossOrigin="anonymous"

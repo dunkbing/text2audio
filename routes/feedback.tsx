@@ -6,7 +6,7 @@ import FeedbackForm from "@/islands/FeedbackForm.tsx";
 export default function (ctx: PageProps) {
   return (
     <div class="flex flex-col justify-center items-center">
-      <Head href={ctx.url.href}>
+      <Head href={ctx.url.href} title="Feedback">
         <link
           as="fetch"
           crossOrigin="anonymous"

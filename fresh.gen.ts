@@ -6,7 +6,6 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $about from "./routes/about.tsx";
 import * as $api from "./routes/api.tsx";
-import * as $api_audio_middleware from "./routes/api/audio/_middleware.ts";
 import * as $api_audio_index from "./routes/api/audio/index.ts";
 import * as $api_feedback from "./routes/api/feedback.ts";
 import * as $api_joke from "./routes/api/joke.ts";
@@ -26,7 +25,6 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/about.tsx": $about,
     "./routes/api.tsx": $api,
-    "./routes/api/audio/_middleware.ts": $api_audio_middleware,
     "./routes/api/audio/index.ts": $api_audio_index,
     "./routes/api/feedback.ts": $api_feedback,
     "./routes/api/joke.ts": $api_joke,

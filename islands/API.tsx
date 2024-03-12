@@ -26,28 +26,6 @@ export default function API(props: { baseUrl: string }) {
           code={`curl -X POST -H "Content-Type: application/json" -d '{"language": "en-US", "paragraphs": "test paragraph", "splitParagraph": true}' ${props.baseUrl}/api/audio`}
         />
 
-        <p class="mb-2">
-          You can also use the <b>fetch</b>{"  "}API with Javascript
-        </p>
-
-        <Code
-          code={`fetch('${props.baseUrl}/api/audio', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              language: 'en-US',
-              paragraphs: 'test paragraph',
-              splitParagraph: true
-            })
-          })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-          `}
-        />
-
         <h2 className="text-xl font-semibold mb-2">2. Response</h2>
         <p className="mb-2">
           A successful response will be an array of objects like this:

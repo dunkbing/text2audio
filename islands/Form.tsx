@@ -160,16 +160,19 @@ export default function Form() {
 
   return (
     <>
+      <h1 class="text-green-800 text-2xl font-semibold mb-4">
+        Text to speech free
+      </h1>
+      <span class="text-green-700 text-sm text-center">
+        This tool divides long text into smaller, readable sections while
+        keeping words intact. It automatically handles line breaks and
+        punctuation to maintain readability.
+      </span>
       <form
         class="flex flex-col my-4 mx-auto px-8 w-full items-center"
         method="POST"
         onSubmit={submit}
       >
-        <span class="text-green-700 text-sm text-center">
-          This tool divides long text into smaller, readable sections while
-          keeping words intact. It automatically handles line breaks and
-          punctuation to maintain readability.
-        </span>
         <div class="my-4 w-3/4">
           <label
             for="text"
@@ -255,9 +258,9 @@ export default function Form() {
           Submit
         </Button>
         <div class="mt-4" />
-        <h1 class="text-gray-700 font-bold">
+        <h2 class="text-gray-700 font-bold">
           {audios.value.length ? "Audio" : "No audio"}
-        </h1>
+        </h2>
       </form>
       {converting.value ? <Loader /> : (
         <>

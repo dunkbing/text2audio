@@ -4,7 +4,7 @@ export function About() {
       id="about"
       class="flex flex-col items-center justify-center mt-5 px-5"
     >
-      <h1 class="text-black text-2xl font-semibold mb-4">About</h1>
+      <h2 class="text-black text-2xl font-semibold mb-4">About</h2>
       <div class="max-w-xl text-left text-black">
         <p class="text-lg mb-3 text-center">
           Text2Audio generates MP3 audio files from text and offers the option

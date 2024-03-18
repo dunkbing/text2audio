@@ -4,7 +4,9 @@ import Form from "@/islands/Form.tsx";
 import Head from "@/components/Head.tsx";
 import { TotalVoices } from "@/components/TotalVoices.tsx";
 import { kv, voicesEntryKey } from "@/utils/kv.ts";
-import { Promote } from "@/components/Promote.tsx";
+import { FAQ } from "@/components/FAQ.tsx";
+import { About } from "@/components/About.tsx";
+import { HowToUse } from "@/components/HowToUse.tsx";
 
 const voicesEntry = await kv.get(voicesEntryKey);
 
@@ -21,7 +23,9 @@ export default function Home(ctx: PageProps) {
       </Head>
       <Form />
       <TotalVoices total={voicesEntry.value} />
-      <Promote />
+      <HowToUse />
+      <About />
+      <FAQ />
     </div>
   );
 }

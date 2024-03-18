@@ -5,7 +5,7 @@ export function FAQ() {
       class="flex flex-col items-center justify-center mt-5 px-5"
     >
       <hr class="w-48 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700" />
-      <h1 class="text-black text-2xl font-semibold mb-4">FAQ</h1>
+      <h2 class="text-black text-2xl font-semibold mb-4">FAQ</h2>
       <div class="flex flex-col sm:px-8 lg:px-12 xl:px-32">
         <details>
           <summary class="py-2 outline-none cursor-pointer focus:underline text-center">

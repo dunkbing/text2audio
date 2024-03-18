@@ -35,10 +35,11 @@ export default function Header(props: HeaderProps) {
           API
         </a>
         <a
-          href="/about"
+          href="https://tinyimg.cc/"
           class={NAV_ITEM}
+          target={"_blank"}
         >
-          About
+          TinyIMG
         </a>
         <a
           href="/feedback"

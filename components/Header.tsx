@@ -19,9 +19,8 @@ export default function Header(props: HeaderProps) {
         <a href="/" class="shrink-0">
           <img
             src="/cover.png"
-            alt={SITE_NAME + " logo"}
-            width={190}
-            height={100}
+            alt={`${SITE_NAME} logo`}
+            width={200}
           />
         </a>
       </div>

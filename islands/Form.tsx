@@ -169,7 +169,7 @@ export default function Form() {
         punctuation to maintain readability.
       </span>
       <form
-        class="flex flex-col my-4 mx-auto px-8 w-full items-center"
+        class="flex flex-col mx-auto px-8 w-full items-center"
         method="POST"
         onSubmit={submit}
       >

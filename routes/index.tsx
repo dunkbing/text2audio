@@ -22,6 +22,7 @@ export default function Home(ctx: PageProps) {
         />
       </Head>
       <Form />
+      <div id="container-6422c2dda22d1320506d5bf4dc3a7b94" />
       <TotalVoices total={voicesEntry.value} />
       <HowToUse />
       <About />

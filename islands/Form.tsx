@@ -160,26 +160,20 @@ export default function Form() {
 
   return (
     <>
-      <h1 class="text-green-800 text-2xl font-semibold mb-4">
+      <h1 class="text-green-800 text-2xl font-semibold">
         Text to speech free
       </h1>
-      <span class="text-green-700 text-sm text-center">
-        This tool divides long text into smaller, readable sections while
-        keeping words intact. It automatically handles line breaks and
-        punctuation to maintain readability.
-      </span>
       <form
         class="flex flex-col mx-auto px-8 w-full items-center"
         method="POST"
         onSubmit={submit}
       >
-        <div class="my-4 w-3/4">
-          <label
-            for="text"
-            class="block text-gray-700 font-bold mb-2 text-xl text-center"
-          >
-            Text
-          </label>
+        <span class="text-green-700 text-sm text-center">
+          This tool divides long text into smaller, readable sections while
+          keeping words intact. It automatically handles line breaks and
+          punctuation to maintain readability.
+        </span>
+        <div class="my-1 w-3/4">
           <textarea
             id="text"
             name="text"
@@ -193,10 +187,10 @@ export default function Form() {
             onDragLeave={handleDragLeave}
           />
         </div>
-        <div class="mb-4">
+        <div class="mb-2">
           <label
             for="language"
-            class="block text-gray-700 font-bold mb-2 text-xl text-center"
+            class="block text-gray-700 font-bold mb-1  text-xl text-center"
           >
             Language
           </label>
@@ -217,7 +211,7 @@ export default function Form() {
             ))}
           </select>
         </div>
-        <div class="mb-4 flex flex-row items-center space-x-2">
+        <div class="mb-2 flex flex-row items-center space-x-2">
           <label
             for="speed"
             class="block text-gray-700 font-bold text-xl text-center"
@@ -235,7 +229,7 @@ export default function Form() {
             onChange={(e) => speed.value = e.currentTarget.value}
           />
         </div>
-        <div class="flex items-center mb-4">
+        <div class="flex items-center mb-2">
           <input
             checked={splitParagraph.value}
             id="green-checkbox"
@@ -257,7 +251,6 @@ export default function Form() {
         >
           Submit
         </Button>
-        <div class="mt-4" />
         <h2 class="text-gray-700 font-bold">
           {audios.value.length ? "Audio" : "No audio"}
         </h2>

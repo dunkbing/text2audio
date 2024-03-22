@@ -161,7 +161,7 @@ export default function Form() {
   return (
     <>
       <h1 class="text-green-800 text-2xl font-semibold">
-        Text to speech free
+        Text to speech (tts) free
       </h1>
       <form
         class="flex flex-col mx-auto px-8 w-full items-center"

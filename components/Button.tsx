@@ -15,8 +15,8 @@ export function Button(
         props.class ?? ""
       } ${
         colorMode === "primary"
-          ? "bg-blue-700 hover:bg-blue-500"
-          : "bg-green-700 hover:bg-green-500"
+          ? "bg-blue-700 hover:bg-blue-500 disabled:bg-blue-400"
+          : "bg-green-700 hover:bg-green-500 disabled:bg-green-400"
       }`}
     />
   );

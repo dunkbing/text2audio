@@ -152,14 +152,14 @@ export default function Form() {
   };
 
   const textAreaClass =
-    `w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 text-black shadow-xl ${
+    `w-full px-3 py-2 border-2 rounded-lg focus:outline-none focus:border-blue-700 text-black shadow-xl ${
       isDragging
-        ? "border-dashed border-blue-500 bg-blue-100"
-        : "border-gray-500"
+        ? "border-dashed border-blue-700 bg-blue-100"
+        : "border-gray-700"
     }`;
 
   return (
-    <>
+    <div class="w-full flex flex-col items-center space-y-1.5">
       <h1 class="text-green-800 text-2xl font-semibold">
         Text to speech (tts) free
       </h1>
@@ -179,7 +179,7 @@ export default function Form() {
             name="text"
             ref={textAreaRef}
             className={textAreaClass}
-            rows={10}
+            rows={9}
             placeholder="Enter your text, or drop a text file here to see its content..."
             required
             onDrop={handleDrop}
@@ -279,6 +279,6 @@ export default function Form() {
         </>
       )}
       <div id="snackbar" />
-    </>
+    </div>
   );
 }

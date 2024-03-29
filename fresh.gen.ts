@@ -9,14 +9,17 @@ import * as $api from "./routes/api.tsx";
 import * as $api_audio_index from "./routes/api/audio/index.ts";
 import * as $api_feedback from "./routes/api/feedback.ts";
 import * as $api_joke from "./routes/api/joke.ts";
+import * as $api_stt from "./routes/api/stt.ts";
 import * as $feedback from "./routes/feedback.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
+import * as $stt from "./routes/stt.tsx";
 import * as $API from "./islands/API.tsx";
+import * as $AudioForm from "./islands/AudioForm.tsx";
 import * as $Code from "./islands/Code.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $FeedbackForm from "./islands/FeedbackForm.tsx";
-import * as $Form from "./islands/Form.tsx";
+import * as $TextForm from "./islands/TextForm.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -28,16 +31,19 @@ const manifest = {
     "./routes/api/audio/index.ts": $api_audio_index,
     "./routes/api/feedback.ts": $api_feedback,
     "./routes/api/joke.ts": $api_joke,
+    "./routes/api/stt.ts": $api_stt,
     "./routes/feedback.tsx": $feedback,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
+    "./routes/stt.tsx": $stt,
   },
   islands: {
     "./islands/API.tsx": $API,
+    "./islands/AudioForm.tsx": $AudioForm,
     "./islands/Code.tsx": $Code,
     "./islands/Counter.tsx": $Counter,
     "./islands/FeedbackForm.tsx": $FeedbackForm,
-    "./islands/Form.tsx": $Form,
+    "./islands/TextForm.tsx": $TextForm,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

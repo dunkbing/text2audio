@@ -32,6 +32,7 @@ async function increaseTotalAudio(num: number) {
 
 export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
+    const date = new Date().getTime();
     try {
       const body = await _req.json();
       const data = body as {
@@ -70,7 +71,7 @@ export const handler: Handlers<Query> = {
           const url = encodeURI(
             `${TRANSLATE_BASE_URL}?${params.toString()}&q=${c}`,
           );
-          const file = `${truncateString(toHex(c + data.language))}.mp3`;
+          const file = `${truncateString(toHex(`${date}_${c}_${data.language}`))}.mp3`;
           const s3Key = `${audioDir}/${file}`;
           const res = await fetch(url);
           const blob = await res.blob();
@@ -92,9 +93,9 @@ export const handler: Handlers<Query> = {
           const stream = mergeReadableStreams(
             ...subStreams.map((s) => s.stream),
           );
-          const file = `${
-            truncateString(toHex(data.paragraphs + data.language))
-          }.mp3`;
+          const file = `${truncateString(
+            toHex(`${date}_${data.paragraphs}_${data.language}`)
+          )}.mp3`;
           const s3Key = `${audioDir}/${file}`;
           await uploadObject(s3Key, stream);
           voiceUrls.push({

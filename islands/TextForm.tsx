@@ -159,12 +159,12 @@ export default function Form() {
     }`;
 
   return (
-    <div class="w-full flex flex-col items-center space-y-1.5">
+    <div class="w-full flex flex-col items-center space-y-2">
       <h1 class="text-green-800 text-2xl font-semibold">
         Text to speech (tts) free
       </h1>
       <form
-        class="flex flex-col mx-auto px-8 w-full items-center"
+        class="flex flex-col mx-auto px-8 w-full items-center space-y-2"
         method="POST"
         onSubmit={submit}
       >
@@ -187,7 +187,7 @@ export default function Form() {
             onDragLeave={handleDragLeave}
           />
         </div>
-        <div class="mb-2">
+        <div class="mb-3">
           <label
             for="language"
             class="block text-gray-700 font-bold mb-1  text-xl text-center"
@@ -214,13 +214,14 @@ export default function Form() {
         <div class="mb-2 flex flex-row items-center space-x-2">
           <label
             for="speed"
-            class="block text-gray-700 font-bold text-xl text-center"
+            class="block text-gray-700 font-bold text-sm text-center"
           >
-            Read Speed ({speed.value})
+            Speed ({speed.value})
           </label>
           <input
             id="speed"
             name="speed"
+            className="range range-xs w-44"
             type="range"
             min="0.1"
             max="1"
@@ -232,13 +233,13 @@ export default function Form() {
         <div class="flex items-center mb-2">
           <input
             checked={splitParagraph.value}
-            id="green-checkbox"
+            id="split-paragraph"
             type="checkbox"
-            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+            class="toggle toggle-success"
             onChange={(e) => splitParagraph.value = e.currentTarget.checked}
           />
           <label
-            for="green-checkbox"
+            for="split-paragraph"
             class="ml-2 text-sm font-medium text-gray-900"
           >
             Split Paragraph
@@ -255,29 +256,26 @@ export default function Form() {
           {audios.value.length ? "Audio" : "No audio"}
         </h2>
       </form>
-      {converting.value ? <Loader /> : (
-        <>
-          {audios.value.length > 1
-            ? (
-              <Button
-                class="text-white font-semibold mb-2"
-                colorMode="secondary"
-                onClick={() =>
-                  audios.value.map((v, i) =>
-                    downloadFile(v.url, String(i + 1)).catch((err) =>
-                      showSnackbar(err)
-                    )
-                  )}
-              >
-                Download All
-              </Button>
-            )
-            : null}
-          {audios.value.map((v, i) => (
-            <AudioCard key={i} text={v.text} url={v.url} index={i + 1} />
-          ))}
-        </>
-      )}
+      {converting.value && <Loader />}
+      {audios.value.length > 1
+        ? (
+          <Button
+            class="text-white font-semibold mb-2"
+            colorMode="secondary"
+            onClick={() =>
+              audios.value.map((v, i) =>
+                downloadFile(v.url, String(i + 1)).catch((err) =>
+                  showSnackbar(err)
+                )
+              )}
+          >
+            Download All
+          </Button>
+        )
+        : null}
+      {audios.value.map((v, i) => (
+        <AudioCard key={v.url} text={v.text} url={v.url} index={i + 1} />
+      ))}
       <div id="snackbar" />
     </div>
   );

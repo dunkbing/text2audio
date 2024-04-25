@@ -1,4 +1,4 @@
-import { S3Client } from "https://deno.land/x/s3_lite_client@0.6.1/mod.ts";
+import { S3Client } from "@bradenmacdonald/s3-lite-client";
 import config from "@/utils/config.ts";
 
 let s3Client_: S3Client;
@@ -32,5 +32,5 @@ export const uploadObject = (key: string, file: ReadableStream) => {
 };
 
 export const getFileUrl = (key: string) => {
-  return `https://pub-2a50230afd0741689fa6dcd63d40ea3f.r2.dev/${key}`;
+  return `${config.s3PublicEndpoint}/${key}`;
 };

@@ -2,14 +2,9 @@ import { Handlers } from "$fresh/server.ts";
 import { createHttpError } from "$std/http/http_errors.ts";
 import { Status } from "$std/http/http_status.ts";
 import { mergeReadableStreams } from "$std/streams/mod.ts";
+import { ulid } from "@std/ulid";
 
-import {
-  splitArray,
-  splitText,
-  toHex,
-  truncateString,
-  uniqFast,
-} from "@/utils/strings.ts";
+import { splitArray, splitText, uniqFast } from "@/utils/strings.ts";
 import { TRANSLATE_BASE_URL } from "@/utils/constants.ts";
 import { getFileUrl, uploadObject } from "@/utils/s3.ts";
 import { kv, voicesEntryKey } from "@/utils/kv.ts";
@@ -32,7 +27,6 @@ async function increaseTotalAudio(num: number) {
 
 export const handler: Handlers<Query> = {
   async POST(_req, _ctx) {
-    const date = new Date().getTime();
     try {
       const body = await _req.json();
       const data = body as {
@@ -71,7 +65,7 @@ export const handler: Handlers<Query> = {
           const url = encodeURI(
             `${TRANSLATE_BASE_URL}?${params.toString()}&q=${c}`,
           );
-          const file = `${truncateString(toHex(`${date}_${c}_${data.language}`))}.mp3`;
+          const file = `${ulid()}.mp3`;
           const s3Key = `${audioDir}/${file}`;
           const res = await fetch(url);
           const blob = await res.blob();
@@ -93,9 +87,7 @@ export const handler: Handlers<Query> = {
           const stream = mergeReadableStreams(
             ...subStreams.map((s) => s.stream),
           );
-          const file = `${truncateString(
-            toHex(`${date}_${data.paragraphs}_${data.language}`)
-          )}.mp3`;
+          const file = `${ulid()}.mp3`;
           const s3Key = `${audioDir}/${file}`;
           await uploadObject(s3Key, stream);
           voiceUrls.push({

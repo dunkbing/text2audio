@@ -3,12 +3,9 @@ import { useRef, useState } from "preact/hooks";
 import IconMicrophone from "tabler_icons_tsx/microphone.tsx";
 
 import { signal } from "@preact/signals";
-import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
 
-type FormProps = {
-  uploadUrl: string;
-};
+type FormProps = {};
 
 type AsrResponse = {
   text: string;
@@ -215,13 +212,13 @@ export default function AudioForm(props: FormProps) {
         {converting.value && <Loader />}
         <div ref={transcribedTextRef} />
 
-        <Button
-          class="text-white font-semibold mt-1"
+        <button
+          class="btn btn-success text-white font-semibold mt-1"
           disabled={converting.value}
           type="submit"
         >
           Submit
-        </Button>
+        </button>
       </form>
     </div>
   );

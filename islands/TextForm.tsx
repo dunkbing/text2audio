@@ -3,7 +3,6 @@ import { useMemo, useRef, useState } from "preact/hooks";
 import { signal } from "@preact/signals";
 import SrtParser2 from "srt-parser-2";
 
-import { Button } from "@/components/Button.tsx";
 import { Loader } from "@/components/Loader.tsx";
 import { downloadFile } from "@/utils/http.ts";
 import { splitText } from "@/utils/strings.ts";
@@ -25,8 +24,8 @@ const AudioCard = (props: Audio) => {
         </p>
       </div>
       <div class="px-4 pb-4 flex justify-center">
-        <Button
-          class="text-white font-semibold"
+        <button
+          class="btn btn-accent btn-sm text-white font-semibold"
           onClick={() => {
             if (playing) {
               setPlaying(false);
@@ -38,15 +37,14 @@ const AudioCard = (props: Audio) => {
           }}
         >
           {playing ? "Pause" : "Play"}
-        </Button>
+        </button>
         <div class="w-5" />
-        <Button
-          class="text-white font-semibold"
-          colorMode="secondary"
+        <button
+          class="btn btn-sm btn-info text-white font-semibold"
           onClick={() => downloadFile(props.url, String(props.index))}
         >
           Download
-        </Button>
+        </button>
       </div>
     </div>
   );
@@ -164,7 +162,7 @@ export default function Form() {
         Text to speech (tts) free
       </h1>
       <form
-        class="flex flex-col mx-auto px-8 w-full items-center space-y-2"
+        class="flex flex-col mx-auto px-8 w-full items-center space-y-3"
         method="POST"
         onSubmit={submit}
       >
@@ -245,13 +243,13 @@ export default function Form() {
             Split Paragraph
           </label>
         </div>
-        <Button
-          class="text-white font-semibold"
+        <button
+          class="btn btn-success text-white font-semibold"
           disabled={converting.value}
           type="submit"
         >
           Submit
-        </Button>
+        </button>
         <h2 class="text-gray-700 font-bold">
           {audios.value.length ? "Audio" : "No audio"}
         </h2>
@@ -259,9 +257,8 @@ export default function Form() {
       {converting.value && <Loader />}
       {audios.value.length > 1
         ? (
-          <Button
-            class="text-white font-semibold mb-2"
-            colorMode="secondary"
+          <button
+            class="btn btn-info text-white font-semibold mb-2"
             onClick={() =>
               audios.value.map((v, i) =>
                 downloadFile(v.url, String(i + 1)).catch((err) =>
@@ -270,7 +267,7 @@ export default function Form() {
               )}
           >
             Download All
-          </Button>
+          </button>
         )
         : null}
       {audios.value.map((v, i) => (

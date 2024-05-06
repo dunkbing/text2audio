@@ -19,10 +19,12 @@ export default function Head(props: HeadProps) {
         href={props.href}
         imageUrl="/og.webp"
       />
-      <script
+      {
+        /* <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-ZJF7E4QKYV"
-      />
+      /> */
+      }
       <script>
         {`
     window.dataLayer = window.dataLayer || [];

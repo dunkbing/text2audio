@@ -21,6 +21,22 @@ export default function Home(ctx: PageProps) {
           rel="preload"
         />
       </Head>
+      <script type="text/javascript">
+        {`
+atOptions = {
+  'key' : '1de6d419f1cc48601813ef750bb3f332',
+  'format' : 'iframe',
+  'height' : 90,
+  'width' : 728,
+  'params' : {}
+};
+`}
+      </script>
+      <script
+        type="text/javascript"
+        src="//www.topcreativeformat.com/1de6d419f1cc48601813ef750bb3f332/invoke.js"
+      >
+      </script>
       <Form />
       <div id="container-6422c2dda22d1320506d5bf4dc3a7b94" />
       <TotalVoices total={voicesEntry.value} />

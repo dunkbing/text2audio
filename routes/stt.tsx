@@ -1,7 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 
 import Head from "@/components/Head.tsx";
-import { TotalVoices } from "@/components/TotalVoices.tsx";
+import { SttDuration } from "@/components/SttDuration.tsx";
 import { kv, sstStatsKey } from "@/utils/kv.ts";
 import { FAQ } from "@/components/FAQ.tsx";
 import { About } from "@/components/About.tsx";
@@ -23,7 +23,7 @@ export default function Stt(ctx: PageProps) {
       </Head>
       <AudioForm />
       <div id="container-6422c2dda22d1320506d5bf4dc3a7b94" />
-      <TotalVoices total={sstStats.value} />
+      <SttDuration total={sstStats.value} />
       <HowToUse />
       <About />
       <FAQ />

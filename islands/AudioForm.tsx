@@ -20,7 +20,7 @@ const converting = signal(false);
 
 const MAX_AUDIO_DURATION_SECONDS = 30;
 
-function ensureValidFile(file: File) {
+function ensureValidFile(file: File): Promise<number> {
   return new Promise((resolve, reject) => {
     if (file && file.type.startsWith("audio/")) {
       const audio = new Audio();
@@ -28,15 +28,15 @@ function ensureValidFile(file: File) {
 
       audio.onloadedmetadata = () => {
         if (audio.duration > MAX_AUDIO_DURATION_SECONDS) {
-          reject(
+          return reject(
             `Audio duration exceeds ${MAX_AUDIO_DURATION_SECONDS} seconds. Please select a shorter audio file.`,
           );
         } else {
-          resolve("");
+          return resolve(audio.duration);
         }
       };
     } else {
-      reject("Please select a valid audio file.");
+      return reject("Please select a valid audio file.");
     }
   });
 }
@@ -44,6 +44,7 @@ function ensureValidFile(file: File) {
 export default function AudioForm(props: FormProps) {
   const [file, setFile] = useState<File | null>(null);
   const transcribedTextRef = useRef<HTMLDivElement>(null);
+  const durationRef = useRef(0);
 
   const handleFileChange: JSX.GenericEventHandler<HTMLInputElement> = async (
     event,
@@ -54,7 +55,10 @@ export default function AudioForm(props: FormProps) {
       return;
     }
     const selectedFile = selectedFiles[0];
-    await ensureValidFile(selectedFile).then(() => setFile(selectedFile)).catch(
+    await ensureValidFile(selectedFile).then((d) => {
+      setFile(selectedFile);
+      durationRef.current = d;
+    }).catch(
       alert,
     );
   };
@@ -78,7 +82,10 @@ export default function AudioForm(props: FormProps) {
       return;
     }
     const droppedFile = droppedFiles[0];
-    await ensureValidFile(droppedFile).then(() => setFile(droppedFile)).catch(
+    await ensureValidFile(droppedFile).then((d) => {
+      setFile(droppedFile);
+      durationRef.current = d;
+    }).catch(
       alert,
     );
   };
@@ -91,6 +98,7 @@ export default function AudioForm(props: FormProps) {
     try {
       const formData = new FormData();
       formData.append("audio", file);
+      formData.append("duration", String(durationRef.current));
 
       const requestOptions: RequestInit = {
         method: "POST",
@@ -113,38 +121,6 @@ export default function AudioForm(props: FormProps) {
       // showSnackbar(error.message);
     } finally {
       converting.value = false;
-    }
-  };
-
-  const downloadAll = async () => {
-    downloadSig.value = true;
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    const raw = JSON.stringify({
-      "files": filesSig.value,
-    });
-
-    const requestOptions: RequestInit = {
-      method: "POST",
-      body: raw,
-    };
-
-    try {
-      const response = await fetch(
-        "",
-        requestOptions,
-      );
-      const blob = await response.blob();
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "images.zip";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      downloadSig.value = false;
     }
   };
 

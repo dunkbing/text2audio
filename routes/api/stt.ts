@@ -1,8 +1,19 @@
 import { Handlers } from "$fresh/server.ts";
-
-import config from "@/utils/config.ts";
 import { Status } from "$std/http/http_status.ts";
 import { createHttpError } from "$std/http/http_errors.ts";
+
+import config from "@/utils/config.ts";
+import { kv, sstStatsKey } from "@/utils/kv.ts";
+
+async function increaseTotalDuration(num: number) {
+  try {
+    const voicesEntry = await kv.get(sstStatsKey);
+    const currentTotal = voicesEntry.value;
+    await kv.set(sstStatsKey, currentTotal + num);
+  } catch (error) {
+    console.error("increaseTotalAudio error", error);
+  }
+}
 
 async function cfRun(model: string, input: FormData) {
   const response = await fetch(
@@ -22,6 +33,8 @@ export const handler: Handlers = {
     try {
       const formData = await _req.formData();
       const audioFile = formData.get("audio") as File;
+      const duration = Number(formData.get("duration") as string);
+      void increaseTotalDuration(duration);
 
       if (!audioFile) {
         return Response.json({ error: "Missing audio file" });

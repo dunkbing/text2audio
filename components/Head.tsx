@@ -39,6 +39,10 @@ export default function Head(props: HeadProps) {
         data-cfasync="false"
         src="//pl21297783.profitablegatecpm.com/6422c2dda22d1320506d5bf4dc3a7b94/invoke.js"
       />
+      <script
+        type="text/javascript"
+        src="//pl21297801.highcpmgate.com/0a/37/e3/0a37e33ffaa59d07679a1a1b311c700c.js"
+      />
       {props.children}
     </_Head>
   );

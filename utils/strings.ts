@@ -78,8 +78,8 @@ export function getFileName(url: string) {
 }
 
 export function formatNumber(number: number) {
-  if (number >= 1000000) {
-    return (number >= 2000000) ? Math.floor(number / 1000000) + "M+" : "1M+";
-  }
+  // if (number >= 1000000) {
+  //   return (number >= 2000000) ? Math.floor(number / 1000000) + "M+" : "1M+";
+  // }
   return number.toLocaleString("en-US");
 }

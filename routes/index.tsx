@@ -21,6 +21,20 @@ export default function Home(ctx: PageProps) {
           rel="preload"
         />
       </Head>
+      <script
+        type="text/javascript"
+        src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+        data-name="bmc-button"
+        data-slug="dangbinh48a"
+        data-color="#FFDD00"
+        data-emoji="☕"
+        data-font="Cookie"
+        data-text="Buy me a coffee"
+        data-outline-color="#000000"
+        data-font-color="#000000"
+        data-coffee-color="#ffffff"
+      />
+      <Form />
       <script type="text/javascript">
         {`
 atOptions = {
@@ -37,7 +51,6 @@ atOptions = {
         src="//www.topcreativeformat.com/1de6d419f1cc48601813ef750bb3f332/invoke.js"
       >
       </script>
-      <Form />
       <div id="container-6422c2dda22d1320506d5bf4dc3a7b94" />
       <TotalVoices total={voicesEntry.value} />
       <HowToUse />

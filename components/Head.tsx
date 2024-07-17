@@ -40,9 +40,18 @@ export default function Head(props: HeadProps) {
         src="//pl21297783.profitablegatecpm.com/6422c2dda22d1320506d5bf4dc3a7b94/invoke.js"
       />
       <script
-        type="text/javascript"
-        src="//pl21297801.highcpmgate.com/0a/37/e3/0a37e33ffaa59d07679a1a1b311c700c.js"
-      />
+        data-name="BMC-Widget"
+        data-cfasync="false"
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="dangbinh48a"
+        data-description="Support me on Buy me a coffee!"
+        data-message=""
+        data-color="#5F7FFF"
+        data-position="Right"
+        data-x_margin="18"
+        data-y_margin="18"
+      >
+      </script>
       {props.children}
     </_Head>
   );

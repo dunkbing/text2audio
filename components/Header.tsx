@@ -8,7 +8,7 @@ export interface HeaderProps {
   url: URL;
 }
 
-export default function Header(props: HeaderProps) {
+export default function Header(_props: HeaderProps) {
   const NAV_ITEM = "text-green-900 underline px-1.5 py-4 sm:py-2";
 
   return (

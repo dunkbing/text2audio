@@ -2,9 +2,9 @@
   "lock": false,
   "tasks": {
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-    "start": "deno run -A --unstable --watch=static/,routes/ dev.ts",
-    "build": "deno run -A --unstable dev.ts build",
-    "preview": "deno run -A --unstable main.ts",
+    "start": "deno run -A --unstable-kv --watch=static/,routes/ dev.ts",
+    "build": "deno run -A --unstable-kv dev.ts build",
+    "preview": "deno run -A --unstable-kv main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
   "lint": { "rules": { "tags": ["fresh", "recommended"] } },
@@ -23,7 +23,7 @@
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.2",
     "preact/": "https://esm.sh/preact@10.19.6/",
     "srt-parser-2": "npm:srt-parser-2@1.2.3",
-    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.5/tsx/",
+    "tabler_icons_tsx/": "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"

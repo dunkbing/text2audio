@@ -2,7 +2,7 @@ import { LINK_STYLES, NAV_STYLES, SITE_BAR_STYLES } from "@/utils/constants.ts";
 import IconBrandGithub from "tabler_icons_tsx/brand-github.tsx";
 import IconBrandTwitter from "tabler_icons_tsx/brand-twitter.tsx";
 import IconBrandTiktok from "tabler_icons_tsx/brand-tiktok.tsx";
-import IconBrandFacebook from "tabler_icons_tsx/brand-facebook.tsx";
+import IconBrandThreads from "tabler_icons_tsx/brand-threads.tsx";
 
 function MadeWithFreshBadge() {
   return (
@@ -53,7 +53,7 @@ export interface FooterProps {
   url: URL;
 }
 
-export default function Footer(props: FooterProps) {
+export default function Footer(_props: FooterProps) {
   return (
     <footer
       class={`${SITE_BAR_STYLES} flex flex-col items-center text-center space-y-2`}
@@ -63,12 +63,12 @@ export default function Footer(props: FooterProps) {
       </a>
       <nav class={NAV_STYLES}>
         <a
-          href="https://www.facebook.com/bingdevtrai"
+          href="https://www.threads.net/@dunkbingg"
           target="_blank"
-          aria-label="Text2Audio developer on Facebook"
+          aria-label="Text2Audio developer on Threads"
           class={LINK_STYLES}
         >
-          <IconBrandFacebook class="h-12 w-12" />
+          <IconBrandThreads class="h-12 w-12" />
         </a>
         <a
           href="https://github.com/dunkbing"
@@ -86,16 +86,14 @@ export default function Footer(props: FooterProps) {
         >
           <IconBrandTwitter class="h-12 w-12" />
         </a>
-        {
-          /* <a
+        <a
           href="https://www.tiktok.com/@ninzaech"
           target="_blank"
           aria-label="Text2Audio developer on Tiktok"
           class={LINK_STYLES}
         >
-          <IconBrandTiktok class="h-6 w-6" />
-        </a> */
-        }
+          <IconBrandTiktok class="h-12 w-12" />
+        </a>
       </nav>
       <span class="text-center mt-1">
         text2audio.cc © 2024 Text2Audio. All rights reserved.
@@ -104,7 +102,7 @@ export default function Footer(props: FooterProps) {
         Built by{" "}
         <a
           className="font-bold text-gray-900"
-          href="https://dunkbing.github.io/"
+          href="https://db99.dev"
           target="_blank"
         >
           dunkbing

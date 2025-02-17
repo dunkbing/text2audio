@@ -28,10 +28,11 @@ export default function Header(_props: HeaderProps) {
         class={"font-semibold flex flex-col gap-x-1 divide-y divide-solid sm:flex sm:items-center sm:flex-row sm:divide-y-0"}
       >
         <a
-          href="/stt"
+          href="https://ftt-one.vercel.app/"
           class={NAV_ITEM}
+          target="_blank"
         >
-          Speech to text
+          Files to text
         </a>
         <a
           href="/api"
